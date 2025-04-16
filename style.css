@@ -1,191 +1,459 @@
-
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body{
-    font-family: "Roboto", sans-serif;
-    font-weight: 600;
-    background-color: #EDE9D5;
-  }
-  nav {
-    background-color: #9CD8F0;
-    box-shadow: 0 0 15px #2688af;
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    position: sticky;
-    height: 90px;
-    top: 0;
-    z-index: 1000;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  background-color: #EDE9D5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #B8E1C1;
+  border-radius: 12px;
+  border: 3px solid #333333;
+}
+
+nav {
+  background-color: rgba(156, 216, 240, 0.98);
+  box-shadow: 0 4px 20px rgba(38, 136, 175, 0.25);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3.5rem;
+  position: sticky;
+  height: 100px;
+  top: 0;
+  z-index: 1000;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+nav.scrolled {
+  height: 85px;
+  box-shadow: 0 2px 15px rgba(38, 136, 175, 0.2);
+}
+
+.logo-container {
+  margin-right: 2.5rem;
 }
 
 #logo img {
-    height: auto;
-    width: 170px;
-    transition: transform 0.3s ease;
+  height: auto;
+  width: 190px;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 2px 3px rgba(38, 136, 175, 0.3));
 }
 
 #logo:hover img {
-    transform: scale(1.05);
+  transform: scale(1.08) rotate(-1deg);
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+  gap: 2rem;
 }
 
 .nav-links ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
-    color: #333333;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: "Roboto", sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    padding: 0.5rem 0;
-    position: relative;
-    transition: all 0.3s ease;
+  color: #333333;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1.3px;
+  padding: 0.75rem 0;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.nav-links a:hover {
-    color: #333333;
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: #2688af;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #333333;
-    transition: width 0.3s ease;
+.nav-links a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-.nav-links a:hover::after {
+.nav-links a.active {
+  color: #2688af;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(156, 216, 240, 0.4);
+}
+
+.nav-links a.active::before {
+  transform: scaleX(1);
+  background-color: #2688af;
+  height: 3.5px;
+}
+
+/* Estilos do menu mobile */
+.mobile-menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body.menu-active {
+    overflow-x: hidden;
+  }
+
+  nav {
+    padding: 0 1.5rem;
+    height: 75px;
+    border-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .logo-container {
+    margin-right: 1rem;
+  }
+
+  #logo img {
+    width: 140px;
+  }
+
+  #logo:hover img {
+    transform: none;
+  }
+
+  .mobile-menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .mobile-menu-button span {
+    display: block;
     width: 100%;
-}
+    height: 2.5px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
 
-.buscar a {
-    background-color: #B8E1C1;
-    color: #333333 !important;
-    padding: 0.6rem 1.2rem !important;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
+  .mobile-menu-button.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
 
-.buscar a:hover {
-    background-color: #a0c5a8;
-}
+  .mobile-menu-button.active span:nth-child(2) {
+    opacity: 0;
+  }
 
-.buscar a::after {
-    display: none;
-}
+  .mobile-menu-button.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 
-.home{
-    position: absolute;
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 65%;
+    max-width: 260px;
+    height: 100vh;
+    background-color: rgba(156, 216, 240, 0.98);
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.wellcome {
-    display: flex;
-    justify-content: center; /* centraliza horizontalmente */
-    margin-top: 5rem;
-    height: 100vh;           /* ocupa 100% da altura da tela */
-    text-align: center;      /* centraliza o texto dentro do <div> */
-  }
-  .wellcome h1{
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700; /* isso aqui já deixa o texto em negrito */
-    font-style: normal; /* pode ser normal ou italic */
-    /* text-transform: uppercase; */
-    color: #333333;
-    font-size: 3rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    transition: right 0.4s ease;
+    box-shadow: -5px 0 15px rgba(38, 136, 175, 0.3);
+    overflow-x: hidden;
   }
 
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    padding: 0.75rem 0;
+  }
+
+  .nav-links a::before {
+    bottom: -3px;
+  }
+
+  .nav-links a.active::before {
+    height: 2.5px;
+  }
+}
+
+/* Removendo a classe .home que não tá sendo usada */
+.wellcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0; /* Removido pra colar no nav */
+  height: 200px; /* Altura fixa pra ser uma barra */
+  text-align: center;
+  background-image: url('https://tremembe.sp.gov.br/wp-content/uploads/2022/03/c48dbcc8-e31b-4435-8a88-3484ef97c1e8.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 1rem;
+}
+
+.wellcome h1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem; /* Reduzido pra caber na barra */
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  /* background: rgba(38, 136, 175, 0.7); */
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  animation: fadeIn 1s ease-out;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .wellcome {
+    margin-top: 0;
+    height: 150px; /* Barra menor no mobile */
+    padding: 0.5rem;
+  }
+
+  .wellcome h1 {
+    font-size: 1.8rem; /* Menor, mas legível */
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+section.farmacias {
+  --primary-color: #1a1a1a;
+  --secondary-color: #b0eacb;
+  --bg-color: #f2ebd4;
+  --text-color: #333;
+  --border-radius: 12px;
+
+  background-color: var(--bg-color);
+  padding: 60px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+}
+
+
+
+.info {
+  flex: 1;
+  min-width: 300px;
+  padding: 20px;
+}
+
+.info h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.info p {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.farmacia-img {
+  flex: 1;
+  width: 100%;
+  max-width: 550px;
+  border-radius: var(--border-radius);
+  height: auto;
+  min-width: 300px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.farmacia-img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: 2px solid var(--primary-color);
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.primary:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.secondary {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 2px solid var(--secondary-color);
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.secondary:hover {
+  background-color: transparent;
+  border-color: var(--primary-color);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
   section.farmacias {
-    background-color: #f2ebd4;
-    padding: 40px 20px;
+    padding: 40px 15px;
   }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    margin-bottom: 60px;
-    flex-wrap: wrap;
+
+  .container,
+  .container.reverse {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    margin-bottom: 50px;
   }
-  
+  .container.reverse {
+    flex-direction: row-reverse;
+  }
   .info {
-    flex: 1;
-    min-width: 300px;
+    padding: 0;
   }
-  
-  .farmacia-img {
-    flex: 1;
-    max-width: 100%;
-    border-radius: 8px;
-    height: auto;
-    min-width: 300px;
+
+  .info h2 {
+    font-size: 1.8rem;
   }
-  
+
   .buttons {
-    display: flex;
+    justify-content: center;
+  }
+
+  .farmacia-img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
     gap: 10px;
-    margin-top: 16px;
   }
-  
-  .primary {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+
+  .primary,
   .secondary {
-    background-color: #b0eacb;
-    color: black;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 4px;
-    cursor: pointer;
+    width: 100%;
   }
-  
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .container,
-    .container.reverse {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .info,
-    .farmacia-img {
-      width: 100%;
-    }
-  
-    .buttons {
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+}
+.container.reverse {
+    flex-direction: row-reverse;
   }
+
+.quem-somos {
+  padding: 60px 20px;
+  font-family: 'Inter', sans-serif;
+  text-align: justify;
+}
+
+.quem-somos .container {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quem-somos h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.quem-somos p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}

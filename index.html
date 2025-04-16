@@ -1,98 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Box Icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- AOS CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <title>BuscaFarma</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Box Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <title>BuscaFarma</title>
 </head>
+
 <body>
-    <nav>
-        <div id="logo">
-            <a href='/'>
-                <img src="imagens/BuscaFarma-removebg-preview.png" alt="Box23 Logo">
-            </a>
+  <nav>
+    <div id="logo">
+      <a href='/'>
+        <img src="imagens/BuscaFarma-removebg-preview.png" alt="Busca Farma Logo">
+      </a>
+    </div>
+
+    <div class="nav-links" id="desktopLinks">
+      <ul>
+        <li><a href="#" class="nav-item active">Farmacias</a></li>
+        <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
+        <li><a href="#" class="nav-item">Divulgue aqui</a></li>
+        <li><a href="#" class="nav-item">Apoie</a></li>
+      </ul>
+    </div>
+
+    <!-- Menu Mobile (opcional) -->
+    <button class="mobile-menu-button" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+
+  <section class="wellcome">
+    <h1>Farmácias Tremembé</h1>
+  </section>
+
+  <section class="farmacias" aria-labelledby="farmacias-heading">
+
+    <article class="farmacia">
+      <div class="container">
+        <div class="info">
+          <h3>Drogasil</h3>
+          <p>Descrição detalhada da farmácia Drogasil e seus serviços</p>
+          <div class="buttons">
+            <button class="primary" aria-label="Saiba mais sobre Drogasil">Saiba mais</button>
+            <button class="secondary" aria-label="Contato WhatsApp da Drogasil">Contato WhatsApp</button>
+          </div>
         </div>
-        
-        <!-- Menu Desktop -->
-        <div class="nav-links" id="desktopLinks">
-            <ul>
-                <li><a href="#">Farmacias</a></li>
-                <li><a href="#">Quem somos</a></li>
-                <li><a href="#">Divulgue aqui</a></li>
-                <li><a href="#">Apoie</a></li>
-            </ul>
-            <div class="buscar">
-                <a href="#">Buscar</a>
-            </div>
+        <img src="imagens/Drogazil.jpg" alt="Fachada da farmácia Drogasil" class="farmacia-img" loading="lazy">
+      </div>
+    </article>
+
+    <article class="farmacia">
+      <div class="container reverse">
+        <img src="imagens/Farma_conde.jpg" alt="Fachada da farmácia Farma Conde" class="farmacia-img" loading="lazy">
+        <div class="info">
+          <h3>Farma Conde</h3>
+          <p>Descrição detalhada da farmácia Farma Conde e seus serviços</p>
+          <div class="buttons">
+            <button class="primary" aria-label="Saiba mais sobre Farma Conde">Saiba mais</button>
+            <button class="secondary" aria-label="Contato WhatsApp da Farma Conde">Contato WhatsApp</button>
+          </div>
         </div>
-    </nav>
-    <section class="wellcome">
-        <div>
-            <h1>Farmacias</h1>
-            <p>Listados a baixo</p>
+      </div>
+    </article>
+
+    <article class="farmacia">
+      <div class="container">
+        <div class="info">
+          <h3>Drogasil</h3>
+          <p>Descrição detalhada da farmácia Drogasil e seus serviços</p>
+          <div class="buttons">
+            <button class="primary" aria-label="Saiba mais sobre Drogasil">Saiba mais</button>
+            <button class="secondary" aria-label="Contato WhatsApp da Drogasil">Contato WhatsApp</button>
+          </div>
         </div>
-        
-    </section>
-    <Section class="farmacias">
-        
-        <div class="container">
-            <div class="info">
-              <h2>Drogasil</h2>
-              <p>A subheading for this section, as long or as short as you like</p>
-              <div class="buttons">
-                <button class="primary">Saiba mais</button>
-                <button class="secondary">Secondary button</button>
-              </div>
-            </div>
-            <img src="imagens/Drogazil.jpg" alt="Fachada da Drogasil" class="farmacia-img">
-          </div>
+        <img src="imagens/Drogazil.jpg" alt="Fachada da farmácia Drogasil" class="farmacia-img" loading="lazy">
+      </div>
+    </article>
 
-          <div class="container reverse">
-            <img src="imagens/Farma_conde.jpg" alt="..." class="farmacia-img" />
-            <div class="info">
-              <h2>Farma conde</h2>
-              <p>A subheading for this section, as long or as short as you like</p>
-              <div class="buttons">
-                <button class="primary">Saiba mais</button>
-                <button class="secondary">Secondary button</button>
-              </div>
-            </div>
+    <article class="farmacia">
+      <div class="container reverse">
+        <img src="imagens/Farma_conde.jpg" alt="Fachada da farmácia Farma Conde" class="farmacia-img" loading="lazy">
+        <div class="info">
+          <h3>Farma Conde</h3>
+          <p>Descrição detalhada da farmácia Farma Conde e seus serviços</p>
+          <div class="buttons">
+            <button class="primary" aria-label="Saiba mais sobre Farma Conde">Saiba mais</button>
+            <button class="secondary" aria-label="Contato WhatsApp da Farma Conde">Contato WhatsApp</button>
           </div>
+        </div>
+      </div>
+    </article>
+  </section>
 
-          <div class="container">
-            <div class="info">
-              <h2>Drogasil</h2>
-              <p>A subheading for this section, as long or as short as you like</p>
-              <div class="buttons">
-                <button class="primary">Saiba mais</button>
-                <button class="secondary">Secondary button</button>
-              </div>
-            </div>
-            <img src="imagens/Drogazil.jpg" alt="Fachada da Drogasil" class="farmacia-img">
-          </div>
+  <section class="quem-somos" id="quem-somos">
+    <div class="container">
+      <h2>Quem somos</h2>
+      <p>
+        Somos estudantes do curso de Análise e Desenvolvimento de Sistemas (ADS) da Universidade de Taubaté – UNITAU.
+        Este projeto nasceu como parte das nossas horas de ACE (Atividades Curriculares de Extensão), mas foi muito além
+        disso.
+        Vimos aqui uma oportunidade de aplicar o que estamos aprendendo na prática, desenvolvendo uma solução simples,
+        mas útil,
+        que pode ajudar a comunidade de verdade.
+      </p>
+      <p>
+        A ideia do <strong>BuscaFarma</strong> nasceu da vontade de facilitar o acesso a informações sobre farmácias na
+        região, especialmente para
+        quem precisa encontrar uma com mais praticidade.
+      </p>
+      <p>
+        Estamos aprendendo, errando, corrigindo e, principalmente, evoluindo. Obrigado por visitar nosso projeto!
+      </p>
+    </div>
+  </section>
 
-          <div class="container reverse">
-            <img src="imagens/Farma_conde.jpg" alt="..." class="farmacia-img" />
-            <div class="info">
-              <h2>Farma conde</h2>
-              <p>A subheading for this section, as long or as short as you like</p>
-              <div class="buttons">
-                <button class="primary">Saiba mais</button>
-                <button class="secondary">Secondary button</button>
-              </div>
-            </div>
-          </div>
-    </Section>
+  <script>// Efeito de scroll na navbar
+    window.addEventListener('scroll', function () {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
 
+    // Highlight do item ativo
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function () {
+        document.querySelectorAll('.nav-links a').forEach(item => {
+          item.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenuButton.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
 </body>
+
 </html>
