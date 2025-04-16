@@ -5,6 +5,10 @@
     padding: 0;
     box-sizing: border-box;
   }
+  body{
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+  }
   nav {
     background-color: #9CD8F0;
     box-shadow: 0 0 15px #2688af;
@@ -96,4 +100,16 @@
     justify-content: center;
     align-items: center;
 }
-
+.wellcome {
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    margin-top: 5rem;
+    height: 100vh;           /* ocupa 100% da altura da tela */
+    text-align: center;      /* centraliza o texto dentro do <div> */
+  }
+  .wellcome h1{
+    text-transform: uppercase;
+    color: #333333;
+    font-size: 3rem;
+  }
+  
