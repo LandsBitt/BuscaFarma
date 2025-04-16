@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time BuscaFarma</title>
+    <style>
+        /* === VARIÁVEIS DE CORES === */
+        :root {
+            --deep-space: #0a0e17;
+            --midnight-blue: #0f1a3a;
+            --ocean-depth: #142850;
+            --electric-blue: #00a8cc;
+            --ice-blue: #d4f1f9;
+            --steel-gray: #393e46;
+            --light-steel: #eeeeee;
+            
+            --glow-blue: 0 0 15px rgba(0, 168, 204, 0.6);
+            --glow-light: 0 0 20px rgba(212, 241, 249, 0.4);
+            
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--deep-space);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--deep-space), var(--midnight-blue));
+            color: var(--light-steel);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* === EFEITOS DE FUNDO === */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 168, 204, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(212, 241, 249, 0.03) 0%, transparent 25%);
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        /* === TIPOGRAFIA === */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        /* === NAVEGAÇÃO FUTURISTA === */
+        nav {
+            background: rgba(10, 14, 23, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 168, 204, 0.2);
+            padding: 0 2.5rem;
+            height: 80px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            height: 70px;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        #logo img {
+            height: 40px;
+            transition: var(--transition);
+            filter: brightness(1.2);
+        }
+
+        #logo:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(var(--glow-blue));
+        }
+
+        .nav-links ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-steel);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--electric-blue);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--electric-blue);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--ice-blue);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            background: var(--ice-blue);
+            width: 100%;
+        }
+
+        /* === SEÇÃO DO TIME === */
+        .team-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .team-container h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            color: var(--ice-blue);
+            position: relative;
+        }
+
+        .team-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--electric-blue);
+            border-radius: 3px;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            justify-content: center;
+        }
+
+        .team-member {
+            background: rgba(15, 26, 58, 0.6);
+            border: 1px solid rgba(0, 168, 204, 0.3);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                transparent,
+                rgba(0, 168, 204, 0.03),
+                transparent
+            );
+            z-index: -1;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: var(--electric-blue);
+            box-shadow: var(--glow-blue);
+            background: rgba(15, 26, 58, 0.8);
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--steel-gray);
+            margin-bottom: 1.8rem;
+            transition: var(--transition);
+            filter: grayscale(20%);
+        }
+
+        .team-member:hover .profile-pic {
+            border-color: var(--electric-blue);
+            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        .team-member h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+            color: var(--ice-blue);
+        }
+
+        .team-member p {
+            color: var(--light-steel);
+            margin-bottom: 1.8rem;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        .btn-social {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-steel);
+            font-size: 1.2rem;
+            transition: var(--transition);
+            background: rgba(57, 62, 70, 0.4);
+            border: 1px solid var(--steel-gray);
+        }
+
+        .btn-social:hover {
+            background: var(--electric-blue);
+            color: var(--deep-space);
+            transform: translateY(-3px);
+            border-color: var(--electric-blue);
+            box-shadow: var(--glow-blue);
+        }
+
+        /* === FOOTER ELEGANTE === */
+        .footer {
+            background: var(--deep-space);
+            border-top: 1px solid rgba(0, 168, 204, 0.2);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .footer-logo img:hover {
+            opacity: 1;
+            filter: drop-shadow(var(--glow-blue));
+        }
+
+        .footer-links h3, 
+        .footer-social h3 {
+            color: var(--ice-blue);
+            margin-bottom: 1.8rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--light-steel);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            opacity: 0.8;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-blue);
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .footer-social a {
+            color: var(--light-steel);
+            font-size: 1.3rem;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .footer-social a:hover {
+            color: var(--electric-blue);
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(57, 62, 70, 0.5);
+        }
+
+        .footer-bottom p {
+            color: var(--light-steel);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        /* === SCROLLBAR PERSONALIZADA === */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--deep-space);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--electric-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ice-blue);
+        }
+
+        /* === MENU MOBILE === */
+        .mobile-menu-button {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-button span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--light-steel);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-button.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+            background: var(--electric-blue);
+        }
+
+        .mobile-menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-button.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+            background: var(--electric-blue);
+        }
+
+        /* === ANIMAÇÕES === */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* === RESPONSIVIDADE === */
+        @media (max-width: 1024px) {
+            .team-container h2 {
+                font-size: 2.5rem;
+            }
+            
+            .team-member {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.8rem;
+            }
+            
+            .mobile-menu-button {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.4s ease;
+                border-left: 1px solid var(--electric-blue);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links ul {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .team-container h2 {
+                font-size: 2.2rem;
+                margin-bottom: 4rem;
+            }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-container h2 {
+                font-size: 2rem;
+            }
+            
+            .team-member h3 {
+                font-size: 1.4rem;
+            }
+            
+            .footer {
+                padding: 3rem 1.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-links ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-social .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav>
+        <div class="logo-container">
+            <a href="index.html" id="logo">
+                <img src="https://raw.githubusercontent.com/LandsBitt/BuscaFarma/main/imagens/logo.png" alt="Logo BuscaFarma">
+            </a>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="index.html#home" class="active">Início</a></li>
+                <li><a href="index.html#farmacias">Farmácias</a></li>
+                <li><a href="index.html#quem-somos">Quem Somos</a></li>
+                <li><a href="index.html#contact">Contato</a></li>
+            </ul>
+        </div>
+        <button class="mobile-menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Seção Time -->
+    <section class="team-section">
+        <div class="team-container">
+            <h2>Nosso Time de Especialistas</h2>
+            <div class="team-members">
+                <!-- Roland -->
+                <div class="team-member floating">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Roland" class="profile-pic">
+                    <h3>Roland</h3>
+                    <p>Desenvolvedor Front-End e Líder do Projeto</p>
+                    <div class="social-buttons">
+                        <a href="https://linkedin.com" target="_blank" class="btn-social" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="btn-social" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- João -->
+                <div class="team-member floating" style="animation-delay: 0.2s;">
+                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="João" class="profile-pic">
+                    <h3>João</h3>
+                    <p>Especialista em UX/UI</p>
+                    <div class="social-buttons">
+                        <a href="https://linkedin.com" target="_blank" class="btn-social" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="btn-social" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Maria -->
+                <div class="team-member floating" style="animation-delay: 0.4s;">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Maria" class="profile-pic">
+                    <h3>Maria</h3>
+                    <p>Desenvolvedora Back-End</p>
+                    <div class="social-buttons">
+                        <a href="https://linkedin.com" target="_blank" class="btn-social" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" class="btn-social" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <img src="https://raw.githubusercontent.com/LandsBitt/BuscaFarma/main/imagens/logo.png" alt="Logo BuscaFarma">
+                </a>
+            </div>
+            <div class="footer-links">
+                <h3>Navegação</h3>
+                <ul>
+                    <li><a href="index.html#home">Início</a></li>
+                    <li><a href="index.html#farmacias">Farmácias</a></li>
+                    <li><a href="index.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Conecte-se</h3>
+                <div class="social-icons">
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 BuscaFarma. Todos os direitos reservados ao <strong>Time BuscaFarma</strong>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuButton.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Efeito de scroll na navegação
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Animação dos cards ao rolar
+        const teamMembers = document.querySelectorAll('.team-member');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        teamMembers.forEach(member => {
+            member.style.opacity = 0;
+            member.style.transform = 'translateY(30px)';
+            member.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(member);
+        });
+    </script>
+</body>
+</html>
