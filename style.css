@@ -8,6 +8,7 @@
   body{
     font-family: "Roboto", sans-serif;
     font-weight: 600;
+    background-color: #EDE9D5;
   }
   nav {
     background-color: #9CD8F0;
@@ -108,7 +109,11 @@
     text-align: center;      /* centraliza o texto dentro do <div> */
   }
   .wellcome h1{
-    text-transform: uppercase;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700; /* isso aqui já deixa o texto em negrito */
+    font-style: normal; /* pode ser normal ou italic */
+    /* text-transform: uppercase; */
     color: #333333;
     font-size: 3rem;
   }
