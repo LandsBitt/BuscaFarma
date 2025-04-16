@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>BuscaFarma</title>
+</head>
+
+<body>
+    <nav>
+        <div id="logo">
+            <a href='/'>
+                <img src="imagens/BuscaFarma-removebg-preview.png" alt="Busca Farma Logo">
+            </a>
+        </div>
+
+        <div class="nav-links" id="desktopLinks">
+            <ul>
+                <li><a href="index.html" class="nav-item">Farmacias</a></li>
+                <li><a href="index.html#quem-somos" class="nav-item">Quem somos</a></li>
+                <li><a href="#" class="nav-item active">Divulgue aqui</a></li>
+                <li><a href="#" class="nav-item">Apoie</a></li>
+            </ul>
+        </div>
+
+        <!-- Menu Mobile (opcional) -->
+        <button class="mobile-menu-button" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="contact" id="contact">
+
+        <form id="contact-form">
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Nome completo" required>
+                <input type="email" name="email" placeholder="E-mail" required>
+            </div>
+            <div class="input-box">
+                <input type="tel" name="phone" placeholder="Telefone">
+            </div>
+            <textarea name="message" cols="30" rows="8" placeholder="Mensagem" required></textarea>
+            <button type="submit" class="btn">Enviar Mensagem</button>
+        </form>
+    </section>
+
+
+    <script> document.getElementById('contact-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = e.target.name.value;
+            const email = e.target.email.value;
+            const phone = e.target.phone.value || "Não informado";
+            const message = e.target.message.value;
+
+            const webhookURL = "https://discord.com/api/webhooks/1362071584357093537/AJACMHrOjDlgOqSp3ViaFQc4Zoj7rqGtoTlaW16fCsbYN6MTAv52EuOCF4ppAjpSp8CE";
+
+            const data = {
+                username: "Pedidos 🚀",
+
+                embeds: [
+                    {
+                        title: "📨 Novo Contato Recebido!",
+                        color: 0x00bfff, // Azul bonitinho
+                        fields: [
+                            {
+                                name: "👤 Nome",
+                                value: name,
+                                inline: false
+                            },
+                            {
+                                name: "📧 Email",
+                                value: email,
+                                inline: true
+                            },
+                            {
+                                name: "📱 Telefone",
+                                value: phone,
+                                inline: true
+                            },
+                            {
+                                name: "💬 Mensagem",
+                                value: message,
+                                inline: false
+                            }
+                        ],
+                        footer: {
+                            text: "Enviado pelo formulário do site",
+                        },
+                        timestamp: new Date()
+                    }
+                ]
+            };
+
+            await fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            alert("Mensagem enviada com sucesso! Valeu ✌️");
+            e.target.reset();
+        });
+    </script>
+</body>
+
+</html>
