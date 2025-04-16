@@ -107,7 +107,37 @@
             alert("Mensagem enviada com sucesso! Valeu ✌️");
             e.target.reset();
         });
+
+        
     </script>
+
+<script>// Efeito de scroll na navbar
+    window.addEventListener('scroll', function () {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Highlight do item ativo
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', function () {
+        document.querySelectorAll('.nav-links a').forEach(item => {
+          item.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenuButton.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
 </body>
 
 </html>
