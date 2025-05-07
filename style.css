@@ -5,14 +5,14 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
+html, body {
   font-family: "Roboto", sans-serif;
   font-weight: 600;
   background-color: #EDE9D5;
+  position: relative;
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* Evita overflow horizontal globalmente */
+  width: 100%; /* Garante que o body não exceda a largura da tela */
 }
 
 /* Estilização da Scrollbar */
@@ -128,37 +128,53 @@ nav.scrolled {
   height: 3.5px;
 }
 
-/* Estilos do Menu Mobile */
-.mobile-menu-button {
+/* Estilos do Novo Botão Hambúrguer */
+.menu-toggle {
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 28px;
-  height: 20px;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 1001;
+  padding: 10px;
 }
 
-.mobile-menu-button span {
+.hamburger {
   display: block;
-  width: 100%;
-  height: 2.5px;
-  background-color: #333;
-  border-radius: 2px;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: #333333; /* Cor ajustada para combinar com o design */
   transition: all 0.3s ease;
 }
 
-.mobile-menu-button.active span:nth-child(1) {
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: #333333; /* Cor ajustada */
+  transition: all 0.3s ease;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+/* Estado ativo do menu */
+.menu-toggle[aria-expanded="true"] .hamburger {
+  background: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger::before {
   transform: translateY(8px) rotate(45deg);
 }
 
-.mobile-menu-button.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-button.active span:nth-child(3) {
+.menu-toggle[aria-expanded="true"] .hamburger::after {
   transform: translateY(-8px) rotate(-45deg);
 }
 
@@ -174,6 +190,7 @@ nav.scrolled {
   background-position: center;
   background-repeat: no-repeat;
   padding: 1rem;
+  overflow: hidden; /* Evita overflow na seção */
 }
 
 .wellcome h1 {
@@ -184,6 +201,7 @@ nav.scrolled {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para legibilidade */
   animation: fadeIn 1s ease-out;
 }
 
@@ -208,22 +226,26 @@ section.farmacias {
 
   background-color: var(--bg-color);
   padding: 60px 20px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Evita overflow na seção */
+}
+
+.farmacia {
+  margin-bottom: 40px;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 60px;
-  margin-bottom: 80px;
   flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 0;
+  width: 100%; /* Garante que o container não exceda a largura da tela */
 }
 
-.container.reverse {
-  flex-direction: row;
-}
+
 
 .info {
   flex: 1;
@@ -231,16 +253,16 @@ section.farmacias {
   padding: 20px;
 }
 
-.info h2 {
+.info h3 {
   color: var(--primary-color);
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .info p {
   color: var(--text-color);
-  font-size: 1.1rem;
+  font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -251,7 +273,7 @@ section.farmacias {
   max-width: 550px;
   border-radius: var(--border-radius);
   height: auto;
-  min-width: 300px;
+  min-width: 250px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -264,7 +286,7 @@ section.farmacias {
 .buttons {
   display: flex;
   gap: 15px;
-  margin-top: 25px;
+  margin-top: 15px;
   flex-wrap: wrap;
 }
 
@@ -272,7 +294,7 @@ section.farmacias {
   background-color: var(--primary-color);
   color: white;
   border: 2px solid var(--primary-color);
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: 600;
@@ -288,7 +310,7 @@ section.farmacias {
   background-color: var(--secondary-color);
   color: var(--primary-color);
   border: 2px solid var(--secondary-color);
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: 600;
@@ -298,6 +320,40 @@ section.farmacias {
 .secondary:hover {
   background-color: transparent;
   border-color: var(--primary-color);
+}
+
+/* === Barra Lateral === */
+.sidebar {
+  position: fixed;
+  top: 100px; /* Abaixo da navegação */
+  right: 20px;
+  width: 200px;
+  background: rgba(156, 216, 240, 0.9);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 900;
+  transition: transform 0.3s ease;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  color: #333333;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: #2688af;
 }
 
 /* === Seção Quem Somos === */
@@ -505,31 +561,23 @@ section.farmacias {
     margin-bottom: 60px;
   }
 
-  .info h2 {
-    font-size: 1.8rem;
+  .info h3 {
+    font-size: 1.6rem;
   }
 
   .farmacia-img {
-    max-width: 500px;
+    max-width: 450px;
   }
 
-  .quem-somos {
-    padding: 60px 15px;
-  }
-
-  .quem-somos h2 {
-    font-size: 2.2rem;
-  }
-
-  .quem-somos p {
-    font-size: 1rem;
+  .sidebar {
+    width: 180px;
   }
 }
 
 /* Tablets e Mobile (max-width: 768px) */
 @media (max-width: 768px) {
-  body.menu-active {
-    overflow-x: hidden;
+  body {
+    overflow-x: hidden; /* Reforça a prevenção de overflow */
   }
 
   nav {
@@ -539,7 +587,6 @@ section.farmacias {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
-
   .logo-container {
     margin-right: 1rem;
   }
@@ -552,8 +599,10 @@ section.farmacias {
     transform: none;
   }
 
-  .mobile-menu-button {
+  .menu-toggle {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-links {
@@ -572,7 +621,7 @@ section.farmacias {
     box-sizing: border-box;
     transition: right 0.4s ease;
     box-shadow: -5px 0 15px rgba(38, 136, 175, 0.3);
-    overflow-x: hidden;
+    overflow-x: hidden; /* Evita overflow no menu */
   }
 
   .nav-links.active {
@@ -617,24 +666,46 @@ section.farmacias {
   .container.reverse {
     flex-direction: column;
     text-align: center;
-    gap: 30px;
-    margin-bottom: 50px;
+    gap: 20px;
+    margin-bottom: 40px;
   }
+  
 
   .info {
-    padding: 0;
+    padding: 15px;
+    min-width: 0; /* Remove min-width para evitar overflow */
+    width: 100%; /* Garante que ocupe apenas a largura disponível */
   }
 
-  .info h2 {
-    font-size: 1.8rem;
+  .info h3 {
+    font-size: 1.5rem;
+  }
+
+  .info p {
+    font-size: 0.95rem;
   }
 
   .buttons {
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+    padding: 10px 15px;
   }
 
   .farmacia-img {
     max-width: 100%;
+    min-width: 0; /* Remove min-width para evitar overflow */
+    width: 100%; /* Garante que a imagem não exceda a largura da tela */
+  }
+
+  /* Esconder a barra lateral em telas móveis */
+  .sidebar {
+    display: none;
   }
 
   .quem-somos {
@@ -691,32 +762,30 @@ section.farmacias {
 
   .container,
   .container.reverse {
-    gap: 20px;
-    margin-bottom: 40px;
+    gap: 15px;
+    margin-bottom: 30px;
+    
   }
 
-  .info h2 {
-    font-size: 1.5rem;
+  .info h3 {
+    font-size: 1.3rem;
   }
 
   .info p {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .buttons {
-    flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 
   .primary,
   .secondary {
-    width: 100%;
-    padding: 10px 20px;
+    padding: 8px 12px;
   }
 
   .farmacia-img {
-    max-width: 100%;
-    min-width: 250px;
+    width: 100%;
   }
 
   .quem-somos {
@@ -724,11 +793,11 @@ section.farmacias {
   }
 
   .quem-somos h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .quem-somos p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: 8px;
   }
 
@@ -776,20 +845,24 @@ section.farmacias {
 
   .container,
   .container.reverse {
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
-  .info h2 {
-    font-size: 1.3rem;
+  .info {
+    padding: 10px;
+  }
+
+  .info h3 {
+    font-size: 1.2rem;
   }
 
   .info p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .farmacia-img {
-    min-width: 200px;
+    width: 100%;
   }
 
   .quem-somos {
@@ -797,11 +870,11 @@ section.farmacias {
   }
 
   .quem-somos h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .quem-somos p {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .contact {
@@ -809,12 +882,14 @@ section.farmacias {
     margin: 0.8rem 0.3rem;
   }
 }
+
 /* === Footer === */
 .footer {
   background-color: #333333;
   color: #EDE9D5;
   padding: 3rem 5%;
   font-family: 'Roboto', sans-serif;
+  overflow: hidden; /* Evita overflow no footer */
 }
 
 .footer-container {
@@ -970,5 +1045,169 @@ section.farmacias {
 
   .footer-social a {
       font-size: 1.2rem;
+  }
+}
+
+/* Botão flutuante de acessibilidade */
+.accessibility-floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.accessibility-btn {
+  background-color: #2688af;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.accessibility-btn:hover {
+  background-color: #1a6b8c;
+  transform: scale(1.1);
+}
+
+.accessibility-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 225, 193, 0.5);
+}
+
+/* Estilo para elementos líveis por hover */
+.hover-readable {
+  transition: background-color 0.3s ease;
+}
+
+.hover-readable:hover {
+  background-color: rgba(184, 225, 193, 0.2); /* Fundo verde claro */
+  cursor: pointer;
+}
+
+/* Estilo para navegação por teclado */
+.keyboard-focus {
+  outline: 3px solid #B8E1C1 !important;
+  outline-offset: 2px;
+  box-shadow: 0 0 5px rgba(184, 225, 193, 0.5);
+  transition: outline 0.2s ease, box-shadow 0.2s ease;
+}
+
+section:focus,
+footer:focus {
+  outline: none;
+}
+
+/* === Melhorias Adicionadas === */
+
+/* 1. Ajustes para telas de alta densidade (Retina Displays) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  nav {
+    box-shadow: 0 4px 20px rgba(38, 136, 175, 0.15);
+  }
+
+  .farmacia-img {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .accessibility-btn {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid #333333;
+  }
+}
+
+/* 2. Animação de pulsação no botão flutuante */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(38, 136, 175, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(38, 136, 175, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(38, 136, 175, 0);
+  }
+}
+
+.accessibility-btn {
+  animation: pulse 2s infinite;
+}
+
+/* 3. Melhorar contraste na seção .wellcome */
+.wellcome h1 {
+  background: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para melhor legibilidade */
+}
+
+/* 4. Ajustar botão flutuante em telas menores */
+@media (max-width: 768px) {
+  .accessibility-floating-btn {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .accessibility-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accessibility-floating-btn {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .accessibility-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+}
+
+/* 5. Estilo para estado desativado do modo de leitura */
+.accessibility-btn.reading-off {
+  background-color: #666; /* Cinza para indicar que está desativado */
+}
+
+.accessibility-btn.reading-off:hover {
+  background-color: #555;
+  transform: scale(1.1);
+}
+
+/* 6. Ajustar espaçamentos em telas muito pequenas */
+@media (max-width: 360px) {
+  section.farmacias {
+    padding: 15px 5px;
+  }
+
+  .container,
+  .container.reverse {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .info {
+    padding: 5px;
+  }
+
+  .quem-somos {
+    padding: 20px 5px;
   }
 }

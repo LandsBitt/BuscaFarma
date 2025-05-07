@@ -28,7 +28,7 @@
       </a>
     </div>
 
-    <div class="nav-links" id="desktopLinks">
+    <div class="nav-links" id="nav-menu">
       <ul>
         <li><a href="#" class="nav-item active">Farmacias</a></li>
         <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
@@ -37,21 +37,18 @@
       </ul>
     </div>
 
-    <!-- Menu Mobile (opcional) -->
-    <button class="mobile-menu-button" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <!-- Novo Botão Hambúrguer -->
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+      <span class="hamburger"></span>
     </button>
   </nav>
 
-
+  <!-- Resto do HTML permanece igual -->
   <section class="wellcome">
     <h1>Farmácias Tremembé</h1>
   </section>
 
-  <section class="farmacias" aria-labelledby="farmacias-heading">
-
+  <section class="farmacias" aria-labelledby="farmacias-heading" tabindex="0">
     <article class="farmacia">
       <div class="container">
         <div class="info">
@@ -109,7 +106,7 @@
     </article>
   </section>
 
-  <section class="quem-somos" id="quem-somos">
+  <section class="quem-somos" id="quem-somos" tabindex="0">
     <div class="container">
       <h2>Quem Somos</h2>
       <div class="content-wrapper">
@@ -138,36 +135,45 @@
   </section>
 
   <!-- Footer -->
-<footer class="footer">
-  <div class="footer-container">
+  <footer class="footer" tabindex="0">
+    <div class="footer-container">
       <div class="footer-logo">
-          <a href="#home">
-              <img src="imagens/BuscaFarma_footer.png" alt="Logo BuscaFarma">
-          </a>
+        <a href="#home">
+          <img src="imagens/BuscaFarma_footer.png" alt="Logo BuscaFarma">
+        </a>
       </div>
       <div class="footer-links">
-          <h3>Navegação</h3>
-          <ul>
-            <li><a href="#" class="nav-item active">Farmacias</a></li>
-            <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
-            <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
-            <li><a href="#" class="nav-item">Apoie</a></li>
+        <h3>Navegação</h3>
+        <ul>
+          <li><a href="#" class="nav-item active">Farmacias</a></li>
+          <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
+          <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
+          <li><a href="#" class="nav-item">Apoie</a></li>
+        </ul>
       </div>
       <div class="footer-social">
-          <h3>Redes Sociais</h3>
-          <div class="social-icons">
-              <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
-              <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
-              <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
-          </div>
+        <h3>Redes Sociais</h3>
+        <div class="social-icons">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+        </div>
       </div>
-  </div>
-  <div class="footer-bottom">
+    </div>
+    <div class="footer-bottom">
       <p>&copy; 2025 BuscaFarma. Todos os direitos reservados ao <strong>Time BuscaFarma</strong>.</p>
-  </div>
-</footer>
+    </div>
+  </footer>
 
-  <script>// Efeito de scroll na navbar
+  <div class="accessibility-floating-btn">
+    <button id="toggle-hover-reading" class="accessibility-btn" onclick="toggleHoverReading()" aria-label="Ativar leitura por hover">
+      <i class='bx bx-volume-full'></i>
+    </button>
+  </div>
+
+  <script src="scriptAcessebilidade.js"></script>
+  <script>
+    // Efeito de scroll na navbar
     window.addEventListener('scroll', function () {
       const nav = document.querySelector('nav');
       if (window.scrollY > 20) {
@@ -186,14 +192,18 @@
         this.classList.add('active');
       });
     });
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+
+    // Novo JavaScript para o botão hambúrguer
+    const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenuButton.classList.toggle('active');
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+      menuToggle.setAttribute('aria-expanded', !expanded);
       navLinks.classList.toggle('active');
     });
   </script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93bdb49eb9c3ed87',t:'MTc0NjU4OTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 
 </html>

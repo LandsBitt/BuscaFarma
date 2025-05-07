@@ -16,7 +16,7 @@
             </a>
         </div>
 
-        <div class="nav-links" id="desktopLinks">
+        <div class="nav-links" id="nav-menu">
             <ul>
                 <li><a href="index.html" class="nav-item">Farmacias</a></li>
                 <li><a href="index.html#quem-somos" class="nav-item">Quem somos</a></li>
@@ -25,16 +25,13 @@
             </ul>
         </div>
 
-        <!-- Menu Mobile (opcional) -->
-        <button class="mobile-menu-button" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <!-- Novo Botão Hambúrguer -->
+        <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+            <span class="hamburger"></span>
         </button>
     </nav>
 
     <section class="contact" id="contact">
-
         <form id="contact-form">
             <div class="input-box">
                 <input type="text" name="name" placeholder="Nome completo" required>
@@ -48,8 +45,8 @@
         </form>
     </section>
 
-
-    <script> document.getElementById('contact-form').addEventListener('submit', async function (e) {
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const name = e.target.name.value;
@@ -61,7 +58,6 @@
 
             const data = {
                 username: "Pedidos 🚀",
-
                 embeds: [
                     {
                         title: "📨 Novo Contato Recebido!",
@@ -108,36 +104,37 @@
             e.target.reset();
         });
 
-        
-    </script>
-
-<script>// Efeito de scroll na navbar
-    window.addEventListener('scroll', function () {
-      const nav = document.querySelector('nav');
-      if (window.scrollY > 20) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Highlight do item ativo
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', function () {
-        document.querySelectorAll('.nav-links a').forEach(item => {
-          item.classList.remove('active');
+        // Efeito de scroll na navbar
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
-        this.classList.add('active');
-      });
-    });
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const navLinks = document.querySelector('.nav-links');
 
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenuButton.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-  </script>
+        // Highlight do item ativo
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.querySelectorAll('.nav-links a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Novo JavaScript para o botão hambúrguer
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93bdb49e4e22ed8c',t:'MTc0NjU4OTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 
 </html>
