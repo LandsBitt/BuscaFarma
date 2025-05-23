@@ -1,0 +1,454 @@
+/* === Variáveis de Estilo === */
+:root {
+    /* Cores em tons de azul e preto */
+    --bg-dark: #0A1A2A;           /* Preto azulado escuro (fundo principal) */
+    --bg-light: #1E3A5F;         /* Azul escuro médio (fundo de cards) */
+    --accent-cyan: #00C4CC;      /* Ciano vibrante (destaques) */
+    --accent-blue: #1E90FF;      /* Azul elétrico (botoes e glow) */
+    --text-light: #B0C4DE;       /* Azul claro para texto */
+    --shadow-cyan: rgba(0, 196, 204, 0.3); /* Sombra ciana */
+    --shadow-blue: rgba(30, 144, 255, 0.4); /* Sombra azul */
+}
+
+/* === Reset e Estilos Globais === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-light);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* === Seção Team === */
+.team-section {
+    min-height: 100vh;
+    padding: 5rem 5%;
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-dark), #0F2A40);
+}
+
+.team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 196, 204, 0.05) 2px, transparent 2px);
+    background-size: 50px 50px;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.team-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.team-container h2 {
+    font-size: 3rem;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 4rem;
+    position: relative;
+    font-weight: 700;
+}
+
+.team-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--accent-blue);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* === Membros do Time === */
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.team-member {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px var(--shadow-cyan);
+}
+
+.team-member .profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-cyan);
+    box-shadow: 0 0 15px var(--shadow-cyan);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-member:hover .profile-pic {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--accent-blue);
+}
+
+.team-member h3 {
+    font-size: 1.8rem;
+    color: var(--accent-blue);
+    margin: 1.5rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-member p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* === Botões Sociais === */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid var(--accent-cyan);
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+
+.btn-social i {
+    font-size: 1.8rem;
+    color: var(--accent-cyan);
+    transition: color 0.4s ease;
+}
+
+.btn-social:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    transform: rotate(10deg) scale(1.1);
+}
+
+.btn-social:hover i {
+    color: var(--text-light);
+}
+
+/* === Navegação === */
+nav {
+    background: rgba(10, 26, 42, 0.95);
+    box-shadow: 0 4px 20px var(--shadow-blue);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 100px;
+    border-bottom: 1px solid var(--accent-cyan);
+    transition: all 0.3s ease;
+}
+
+nav.scrolled {
+    height: 85px;
+    box-shadow: 0 2px 15px var(--shadow-blue);
+}
+
+.logo-container {
+    margin-right: 2.5rem;
+}
+
+#logo img {
+    width: 190px;
+    height: auto;
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0 2px 5px var(--shadow-blue));
+}
+
+#logo:hover img {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+    gap: 2.5rem;
+}
+
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-blue);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::before {
+    transform: scaleX(1);
+}
+
+.nav-links a.active {
+    color: var(--accent-cyan);
+    font-weight: 700;
+}
+
+.nav-links a.active::before {
+    transform: scaleX(1);
+}
+
+/* === Footer === */
+.footer {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    padding: 3rem 5%;
+    border-top: 1px solid var(--accent-cyan);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.footer-logo img {
+    width: 250px;
+    height: auto;
+    filter: drop-shadow(0 2px 5px var(--shadow-blue));
+    transition: transform 0.3s ease;
+}
+
+.footer-logo img:hover {
+    transform: scale(1.05);
+}
+
+.footer-links h3,
+.footer-social h3 {
+    font-size: 1.2rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-blue);
+}
+
+.footer-social .social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social a {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: var(--accent-cyan);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+}
+
+.footer-bottom p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer-bottom strong {
+    color: var(--accent-blue);
+}
+
+/* === Responsividade === */
+@media (max-width: 1024px) {
+    nav {
+        padding: 0 2rem;
+    }
+
+    .team-container h2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1.5rem;
+        height: 75px;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--bg-light);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem;
+        transition: right 0.4s ease;
+        box-shadow: -5px 0 15px var(--shadow-blue);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links ul {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .team-members {
+        grid-template-columns: 1fr;
+    }
+
+    .team-member .profile-pic {
+        width: 140px;
+        height: 140px;
+    }
+
+    .team-member h3 {
+        font-size: 1.5rem;
+    }
+
+    .team-member p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 0 1rem;
+        height: 65px;
+    }
+
+    #logo img {
+        width: 140px;
+    }
+
+    .nav-links {
+        width: 80%;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+    }
+
+    .team-container h2 {
+        font-size: 2rem;
+    }
+
+    .team-member .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .btn-social {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-social i {
+        font-size: 1.5rem;
+    }
+
+    .footer {
+        padding: 2rem 2%;
+    }
+
+    .footer-logo img {
+        width: 120px;
+    }
+}
