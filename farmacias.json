@@ -1,0 +1,74 @@
+[
+  {
+    "nome": "Drogasil",
+    "descricao": "Farmácia com ampla variedade de medicamentos, higiene e beleza. Oferece manipulação, entrega e estacionamento.",
+    "imagem": "imagens/Drogazil.jpg",
+    "whatsapp": "5512996452684",
+    "localizacao": "Av. Tom Jobim, 163 - Lote Residencial Porto Seguro, Tremembé - SP, 12120-000",
+    "horario": "Segunda a domingo, das 07:00 às 23:00"
+  },
+  {
+    "nome": "Farma Conde",
+    "descricao": "Rede de farmácias com vasta gama de produtos para saúde e bem-estar, incluindo medicamentos e cosméticos de marca própria.",
+    "imagem": "imagens/Farma_conde.jpg",
+    "whatsapp": "551236723712",
+    "localizacao": "R. Bom Jesus, 157 - Centro, Tremembé - SP, 12120-000",
+    "horario": "Segunda a domingo, das 07:00 às 23:00"
+  },
+  {
+    "nome": "Farma GE",
+    "descricao": "Farmácia especializada em comércio varejista de produtos farmacêuticos, localizada no centro de Tremembé.",
+    "imagem": "https://via.placeholder.com/550x300",
+    "whatsapp": "551236723647",
+    "localizacao": "Praça Geraldo Costa, 13 - Centro, Tremembé, SP",
+    "horario": "Segunda a sexta: 08:00 às 20:00, Sábado: 08:00 às 19:00, Domingo: 08:00 às 13:00"
+  },
+  {
+    "nome": "Grupo Multifarma Tremembé",
+    "descricao": "Rede associativista de farmácias com foco em gestão e faturamento, oferece entrega em domicílio e compras na loja.",
+    "imagem": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq8xrLWhQ4QHgtreBdL8xpByuGwMOR35gKpWqNXBtvgQmqx6EwcJkN--OB_oJ_kSzc0F1ka9SwahDwkWovH7SmK3qEFxaBrUB0dIA-85ggYvDplr8uNOBid_NJAiI56EtYl_YNtE2WeP9Is=s680-w680-h510-rw",
+    "whatsapp": "551236722789",
+    "localizacao": "Praça Geraldo Costa, 7 - Centro, Tremembé, SP",
+    "horario": "Segunda a domingo, das 08:00 às 22:00"
+  },
+  {
+    "nome": "Drogabella Tremembé Centro",
+    "descricao": "Drogaria com variedade de produtos farmacêuticos e de higiene no centro de Tremembé.",
+    "imagem": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTih7ToYfsgujYr54J0SuOUzuVIBnMlOalMNA&s",
+    "whatsapp": "551236722848",
+    "localizacao": "Rua 7 de Setembro - Centro, Tremembé, SP",
+    "horario": "Segunda a quarta-feira, das 08:00 às 20:00"
+  },
+  {
+    "nome": "Farmapró Farmácia de Manipulação Profissional",
+    "descricao": "Especializada em medicamentos manipulados, oferece produtos alopáticos, fitoterápicos, dermatológicos e suplementos.",
+    "imagem": "https://lh3.googleusercontent.com/p/AF1QipOnUPAgP6Kr7CQy0zVUHUvHm22qP6ZDzivNUquy=s680-w680-h510-rw",
+    "whatsapp": "5512997455220",
+    "localizacao": "Travessa Moisés Cássio Moreira, 59 - Centro, Tremembé, SP",
+    "horario": "Segunda a sexta: 08:30 às 18:30, Sábado: 08:30 às 13:00, Domingo: Fechado"
+  },
+  {
+    "nome": "MULTIFARMA JD SANTANA",
+    "descricao": "Oferece variedade de produtos farmacêuticos e opções de entrega, incluindo no mesmo dia.",
+    "imagem": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrDbEXhEphDI2agL2QLA-8GeL_7dnEnxmGwiY5u9v9Cs1yw8C1-E0szTRaQ7vlegb1a-2DWJi1Dph5umVZEH6TIi726AQzbN3mVvoroK4ES_6a94CyoazUXh5DU1QrxhvqoKJCdqg=s680-w680-h510-rw",
+    "whatsapp": "551236724893",
+    "localizacao": "Rua Justimiano Antunes, 316 - Jardim Santana, Tremembé, SP",
+    "horario": "Segunda a Sábado: 08:00 às 20:00, Domingo: 08:00 às 13:00"
+  },
+  {
+    "nome": "Drogaria Santa Edwiges Flor do Vale",
+    "descricao": "Oferece produtos farmacêuticos e atendimento de qualidade na região do Flor do Vale.",
+    "imagem": "imagens/Drogaria Santa.png",
+    "whatsapp": "551236722527",
+    "localizacao": "Rua Açucenas, 27, Parque Flor Vale, Tremembé, SP",
+    "horario": "Não confirmado (recomenda-se contato direto)"
+  },
+  {
+    "nome": "Farmed Maracaibo",
+    "descricao": "Oferece produtos farmacêuticos e atendimento para a comunidade local no Jd. Maracaibo.",
+    "imagem": "https://lh3.googleusercontent.com/p/AF1QipMUwTNlp4NdQoKxy3nbuY5izFwa8GC_LgCRR3Yw=w243-h304-n-k-no-nu",
+    "whatsapp": "5512988964923",
+    "localizacao": "Rua Seis, 544 - Jd. Maracaibo, Tremembé, SP",
+    "horario": "Segunda a Sábado: 08:30 às 18:00, Domingo: 09:00 às 13:00"
+  }
+]
