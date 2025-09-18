@@ -1,4 +1,460 @@
-/* === Formulário de Contato Moderno === */
+/* === RESET E ESTILOS GLOBAIS === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  position: relative;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #007BFF;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+/* === NAVEGAÇÃO === */
+nav {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 80px;
+  transition: all 0.3s ease;
+}
+nav.scrolled {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#logo img {
+  width: 150px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+#logo:hover img {
+  transform: scale(1.05);
+}
+.nav-links ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+.nav-links a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #007BFF;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: #007BFF;
+}
+.nav-links a:hover::before, .nav-links a.active::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+
+/* === MENU LATERAL E HAMBÚRGUER NOVO === */
+.menu-toggle-new {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1201;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: 10px;
+  transition: background 0.2s;
+}
+.menu-toggle-new:focus {
+  outline: 2px solid #007BFF;
+}
+.hamburger-new {
+  display: block;
+  position: relative;
+  width: 32px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.hamburger-new::before,
+.hamburger-new::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  transition: transform 0.3s, top 0.3s, bottom 0.3s, background 0.3s;
+}
+.hamburger-new::before {
+  top: -10px;
+}
+.hamburger-new::after {
+  top: 10px;
+}
+.menu-toggle-new.open .hamburger-new {
+  background: transparent;
+  box-shadow: none;
+}
+.menu-toggle-new.open .hamburger-new::before {
+  transform: translateY(10px) rotate(45deg);
+  background: #007BFF;
+}
+.menu-toggle-new.open .hamburger-new::after {
+  transform: translateY(-10px) rotate(-45deg);
+  background: #007BFF;
+}
+
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1200;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+.menu-overlay.show {
+  display: block;
+  opacity: 1;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 270px;
+  background: #fff;
+  box-shadow: 2px 0 24px rgba(0,123,255,0.10);
+  z-index: 1202;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+  display: flex;
+  flex-direction: column;
+  padding-top: 90px;
+  outline: none;
+}
+.sidebar.open {
+  transform: translateX(0);
+}
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+  padding-left: 32px;
+}
+.sidebar-nav a {
+  color: #333;
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+.sidebar-nav a.active,
+.sidebar-nav a:hover {
+  color: #007BFF;
+}
+.sidebar-nav a.active::before,
+.sidebar-nav a:hover::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #007BFF;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .menu-toggle-new {
+    display: flex;
+  }
+  .sidebar {
+    width: 80vw;
+    max-width: 340px;
+    padding-top: 80px;
+  }
+  .nav-links, #nav-menu {
+    display: none !important;
+  }
+}
+
+/* === SEÇÃO WELLCOME === */
+.wellcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  text-align: center;
+  background: linear-gradient(rgba(0, 123, 255, 0.5), rgba(0, 86, 179, 0.7)), url('https://tremembe.sp.gov.br/wp-content/uploads/2022/03/c48dbcc8-e31b-4435-8a88-3484ef97c1e8.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 1rem;
+  color: #fff;
+}
+.wellcome h1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.5rem;
+}
+.search-container {
+  width: 100%;
+  max-width: 500px;
+}
+#search-input {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+#search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* === SEÇÃO FARMÁCIAS === */
+section.farmacias {
+  padding: 60px 20px;
+}
+.farmacia {
+  margin-bottom: 40px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.container.reverse {
+  flex-direction: row-reverse;
+}
+.info {
+  flex: 1;
+}
+.info h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #007BFF;
+}
+.info p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.farmacia-img {
+  flex: 1;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  height: 300px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.farmacia-img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+.buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.buttons button, .buttons a {
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid transparent;
+}
+.primary {
+  background-color: #007BFF;
+  color: white;
+}
+.primary:hover {
+  background-color: #0056b3;
+}
+.secondary {
+  background-color: #28a745;
+  color: white;
+}
+.secondary:hover {
+  background-color: #1e7e34;
+}
+.tertiary {
+  background-color: #6c757d;
+  color: white;
+}
+.tertiary:hover {
+  background-color: #5a6268;
+}
+
+/* === SEÇÃO QUEM SOMOS === */
+.quem-somos {
+  padding: 80px 20px;
+  background-color: #fff;
+}
+.quem-somos .container {
+  max-width: 800px;
+  text-align: center;
+  flex-direction: column;
+}
+.quem-somos h2 {
+  font-size: 2.5rem;
+  color: #007BFF;
+  margin-bottom: 30px;
+}
+.quem-somos p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.quem-somos .icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  color: #007BFF;
+}
+.quem-somos .team-link {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007BFF;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+.quem-somos .team-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* === FOOTER === */
+.footer {
+  background-color: #343a40;
+  color: #f8f9fa;
+  padding: 3rem 5%;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #495057;
+}
+.footer-logo img {
+  width: 200px;
+}
+.footer-links h3,
+.footer-social h3 {
+  font-size: 1.2rem;
+  color: #007BFF;
+  margin-bottom: 1rem;
+}
+.footer-links ul {
+  list-style: none;
+}
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+.footer-links a {
+  color: #f8f9fa;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
+  color: #007BFF;
+}
+.footer-social .social-icons {
+  display: flex;
+  gap: 1rem;
+}
+.footer-social a {
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.footer-social a:hover {
+  color: #007BFF;
+  transform: translateY(-3px);
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+}
+.footer-bottom p {
+  font-size: 0.9rem;
+}
+.footer-bottom strong {
+  color: #007BFF;
+}
+
+/* === FORMULÁRIO DE CONTATO MODERNO === */
 .contact-section {
   background: #fff;
   padding: 60px 0 80px 0;
@@ -86,6 +542,237 @@
   transform: translateY(-2px) scale(1.03);
 }
 
+/* === MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  transition: background 0.3s;
+}
+.modern-modal {
+  background: #fff;
+  margin: 60px auto;
+  padding: 0;
+  border-radius: 20px;
+  max-width: 480px;
+  width: 95%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.modern-modal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.animate-modal {
+  animation: modalIn 0.3s cubic-bezier(.4,0,.2,1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(60px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(90deg, #007BFF 60%, #0056b3 100%);
+  color: #fff;
+  padding: 28px 32px 18px 32px;
+  border-radius: 20px 20px 0 0;
+}
+.modal-icon {
+  font-size: 2.5rem;
+  background: #fff;
+  color: #007BFF;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
+}
+.modal-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #fff;
+}
+.modal-location {
+  font-size: 1rem;
+  color: #e3e3e3;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.modal-body {
+  padding: 24px 32px 32px 32px;
+  background: #fff;
+}
+.modal-description {
+  font-size: 1.08rem;
+  color: #333;
+  margin-bottom: 22px;
+}
+.close-btn {
+  color: #007BFF;
+  background: #fff;
+  border: none;
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.close-btn:hover,
+.close-btn:focus {
+  background: #007BFF;
+  color: #fff;
+}
+
+/* === TABELA DE HORÁRIOS === */
+.horario-table-wrapper {
+  margin-top: 10px;
+  width: 100%;
+  overflow-x: auto;
+}
+.horario-title {
+  font-weight: 600;
+  color: #007BFF;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.horario-table {
+  width: 100%;
+  min-width: 260px;
+  border-collapse: collapse;
+  background: #f8f9fa;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
+  table-layout: fixed;
+}
+.horario-table td {
+  padding: 8px 8px;
+  font-size: 1rem;
+  color: #333;
+  border-bottom: 1px solid #e3e3e3;
+  word-break: break-word;
+}
+.horario-table tr:last-child td {
+  border-bottom: none;
+}
+.horario-dia {
+  font-weight: 500;
+  color: #007BFF;
+  white-space: nowrap;
+  width: 45%;
+  text-align: left;
+}
+.horario-hora {
+  color: #222;
+  width: 55%;
+  text-align: left;
+}
+
+/* === BOTÃO DE ACESSIBILIDADE === */
+.accessibility-floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.accessibility-btn {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.accessibility-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+/* === MEDIA QUERIES === */
+@media (max-width: 768px) {
+  nav {
+    padding: 0 1.5rem;
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transition: right 0.4s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+  .nav-links.active {
+    right: 0;
+  }
+  .nav-links ul {
+    flex-direction: column;
+    text-align: center;
+  }
+  .wellcome h1 {
+    font-size: 2.5rem;
+  }
+  .container, .container.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+  .farmacia-img {
+    max-width: 100%;
+  }
+  .buttons {
+    justify-content: center;
+  }
+  .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+}
 @media (max-width: 600px) {
   .contact-container {
     padding: 18px 4vw 18px 4vw;
@@ -96,6 +783,29 @@
   .styled-form input, .styled-form textarea {
     font-size: 0.98rem;
     padding: 12px 10px;
+  }
+  .modern-modal, .modal-content {
+    padding: 0;
+    max-width: 98vw;
+  }
+  .modal-header, .modal-body {
+    padding: 18px 10px 18px 10px;
+  }
+}
+@media (max-width: 480px) {
+  .wellcome h1 {
+    font-size: 2rem;
+  }
+  .buttons button, .buttons a {
+    width: 100%;
+    justify-content: center;
+  }
+  .horario-table td {
+    font-size: 0.95rem;
+    padding: 7px 4px;
+  }
+  .horario-title {
+    font-size: 1rem;
   }
 }
 /* === Reset e Estilos Globais === */

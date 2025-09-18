@@ -29,18 +29,22 @@
       </a>
     </div>
 
-    <div class="nav-links" id="nav-menu">
-      <ul>
-        <li><a href="#" class="nav-item active">Farmacias</a></li>
-        <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
-        <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
-        <li><a href="#" class="nav-item">Apoie</a></li>
-      </ul>
-    </div>
-
-    <!-- Novo Botão Hambúrguer -->
-    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
-      <span class="hamburger"></span>
+    <!-- Overlay para menu lateral -->
+    <div id="menu-overlay" class="menu-overlay" tabindex="-1" aria-hidden="true"></div>
+    <!-- Sidebar moderna -->
+    <aside class="sidebar" id="sidebar" aria-label="Menu lateral" aria-hidden="true">
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="nav-item active">Farmacias</a></li>
+          <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
+          <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
+          <li><a href="#" class="nav-item">Apoie</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <!-- Botão Hambúrguer novo -->
+    <button class="menu-toggle-new" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar" tabindex="0">
+      <span class="hamburger-new"></span>
     </button>
   </nav>
 
@@ -162,14 +166,49 @@
       });
     });
 
-    // Novo JavaScript para o botão hambúrguer
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
 
+    // MENU LATERAL MODERNO DO ZERO
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('menu-overlay');
+    const sidebarLinks = sidebar.querySelectorAll('a');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      sidebar.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      menuToggle.classList.add('open');
+      setTimeout(() => { sidebar.focus(); }, 100);
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      sidebar.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      menuToggle.classList.remove('open');
+    }
     menuToggle.addEventListener('click', () => {
-      const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
-      menuToggle.setAttribute('aria-expanded', !expanded);
-      navLinks.classList.toggle('active');
+      if (sidebar.classList.contains('open')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+    overlay.addEventListener('click', closeSidebar);
+    // Fecha ao clicar em link
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+    // Fecha ao pressionar ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+        closeSidebar();
+      }
     });
 
     // Carregar e exibir farmácias
