@@ -31,109 +31,84 @@
         </button>
     </nav>
 
-    <section class="contact" id="contact">
-        <form id="contact-form">
-            <div class="input-box">
-                <input type="text" name="name" placeholder="Nome completo" required>
-                <input type="email" name="email" placeholder="E-mail" required>
+        <section class="contact-section" id="contact">
+            <div class="contact-container">
+                <h1 class="contact-title">Divulgue sua Farmácia</h1>
+                <p class="contact-desc">Preencha o formulário abaixo para divulgar sua farmácia ou serviço no BuscaFarma. Entraremos em contato rapidamente!</p>
+                <form id="contact-form" class="styled-form">
+                    <div class="input-box">
+                        <input type="text" name="name" placeholder="Nome completo" required>
+                        <input type="email" name="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-box">
+                        <input type="tel" name="phone" placeholder="Telefone">
+                    </div>
+                    <textarea name="message" cols="30" rows="8" placeholder="Mensagem" required></textarea>
+                    <button type="submit" class="btn primary">Enviar Mensagem</button>
+                </form>
             </div>
-            <div class="input-box">
-                <input type="tel" name="phone" placeholder="Telefone">
-            </div>
-            <textarea name="message" cols="30" rows="8" placeholder="Mensagem" required></textarea>
-            <button type="submit" class="btn">Enviar Mensagem</button>
-        </form>
-    </section>
+        </section>
 
-    <script>
-        document.getElementById('contact-form').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const name = e.target.name.value;
-            const email = e.target.email.value;
-            const phone = e.target.phone.value || "Não informado";
-            const message = e.target.message.value;
-
-            const webhookURL = "https://discord.com/api/webhooks/1362071584357093537/AJACMHrOjDlgOqSp3ViaFQc4Zoj7rqGtoTlaW16fCsbYN6MTAv52EuOCF4ppAjpSp8CE";
-
-            const data = {
-                username: "Pedidos 🚀",
-                embeds: [
-                    {
-                        title: "📨 Novo Contato Recebido!",
-                        color: 0x00bfff, // Azul bonitinho
-                        fields: [
-                            {
-                                name: "👤 Nome",
-                                value: name,
-                                inline: false
-                            },
-                            {
-                                name: "📧 Email",
-                                value: email,
-                                inline: true
-                            },
-                            {
-                                name: "📱 Telefone",
-                                value: phone,
-                                inline: true
-                            },
-                            {
-                                name: "💬 Mensagem",
-                                value: message,
-                                inline: false
-                            }
-                        ],
-                        footer: {
-                            text: "Enviado pelo formulário do site",
-                        },
-                        timestamp: new Date()
-                    }
-                ]
-            };
-
-            await fetch(webhookURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
-            alert("Mensagem enviada com sucesso! Valeu ✌️");
-            e.target.reset();
-        });
-
-        // Efeito de scroll na navbar
-        window.addEventListener('scroll', function () {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 20) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Highlight do item ativo
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function () {
-                document.querySelectorAll('.nav-links a').forEach(item => {
-                    item.classList.remove('active');
+        <script>
+            document.getElementById('contact-form').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const name = e.target.name.value;
+                const email = e.target.email.value;
+                const phone = e.target.phone.value || "Não informado";
+                const message = e.target.message.value;
+                const webhookURL = "https://discord.com/api/webhooks/1362071584357093537/AJACMHrOjDlgOqSp3ViaFQc4Zoj7rqGtoTlaW16fCsbYN6MTAv52EuOCF4ppAjpSp8CE";
+                const data = {
+                    username: "Pedidos 🚀",
+                    embeds: [
+                        {
+                            title: "📨 Novo Contato Recebido!",
+                            color: 0x00bfff,
+                            fields: [
+                                { name: "👤 Nome", value: name, inline: false },
+                                { name: "📧 Email", value: email, inline: true },
+                                { name: "📱 Telefone", value: phone, inline: true },
+                                { name: "💬 Mensagem", value: message, inline: false }
+                            ],
+                            footer: { text: "Enviado pelo formulário do site" },
+                            timestamp: new Date()
+                        }
+                    ]
+                };
+                await fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
                 });
-                this.classList.add('active');
+                alert("Mensagem enviada com sucesso! Valeu ✌️");
+                e.target.reset();
             });
-        });
-
-        // Novo JavaScript para o botão hambúrguer
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
-            menuToggle.setAttribute('aria-expanded', !expanded);
-            navLinks.classList.toggle('active');
-        });
-    </script>
+            // Efeito de scroll na navbar
+            window.addEventListener('scroll', function () {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 20) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+            // Highlight do item ativo
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function () {
+                    document.querySelectorAll('.nav-links a').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            // Novo JavaScript para o botão hambúrguer
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            menuToggle.addEventListener('click', () => {
+                const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+                menuToggle.setAttribute('aria-expanded', !expanded);
+                navLinks.classList.toggle('active');
+            });
+        </script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93bdb49e4e22ed8c',t:'MTc0NjU4OTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 

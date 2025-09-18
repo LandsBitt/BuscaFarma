@@ -106,12 +106,19 @@
   </footer>
 
   <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h3 id="modal-title"></h3>
-      <p id="modal-description"></p>
-      <p id="modal-location"></p>
-      <div id="modal-horario"></div>
+    <div class="modal-content modern-modal animate-modal">
+      <button class="close-btn" aria-label="Fechar">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon"><i class='bx bxs-capsule'></i></div>
+        <div>
+          <h2 id="modal-title" class="modal-title"></h2>
+          <span id="modal-location" class="modal-location"></span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p id="modal-description" class="modal-description"></p>
+        <div id="modal-horario" class="modal-horario"></div>
+      </div>
     </div>
   </div>
 
@@ -230,40 +237,60 @@
 
     function initializeModalEvents() {
       const saibaMaisButtons = document.querySelectorAll('.primary');
-
-      saibaMaisButtons.forEach(button => {
+      saibaMaisButtons.forEach((button, idx) => {
         button.addEventListener('click', () => {
           const farmaciaArticle = button.closest('.farmacia');
           const title = farmaciaArticle.querySelector('h3').textContent;
           const description = farmaciaArticle.querySelector('p').textContent;
           const location = button.dataset.localizacao;
-          const horario = button.dataset.horario;
+
+          // Buscar a farmácia correspondente pelo nome (garante que pega o objeto certo)
+          const farmacia = allFarmacias.find(f => f.nome === title);
 
           modalTitle.textContent = title;
           modalDescription.textContent = description;
-          modalLocation.innerHTML = `<strong>Localização:</strong> ${location}`;
+          modalLocation.innerHTML = `<i class='bx bx-map'></i> ${location}`;
 
-          if (horario.includes(',')) {
-            const horariosList = horario.split(',').map(item => `<li>${item.trim()}</li>`).join('');
-            modalHorario.innerHTML = `<strong>Horário de Funcionamento:</strong><ul>${horariosList}</ul>`;
+          // Exibir tabela de horários a partir do array 'horarios'
+          if (farmacia && Array.isArray(farmacia.horarios)) {
+            const horariosList = farmacia.horarios.map(h =>
+              `<tr><td class="horario-dia"><i class='bx bx-calendar'></i> ${h.dia}</td><td class="horario-hora"><i class='bx bx-time'></i> ${h.horario}</td></tr>`
+            ).join('');
+            modalHorario.innerHTML = `
+              <div class="horario-table-wrapper">
+                <span class="horario-title"><i class='bx bx-time-five'></i> Horário de Funcionamento</span>
+                <table class="horario-table">
+                  <tbody>${horariosList}</tbody>
+                </table>
+              </div>
+            `;
           } else {
-            modalHorario.innerHTML = `<strong>Horário de Funcionamento:</strong> ${horario}`;
+            // fallback para farmácias sem horários estruturados
+            modalHorario.innerHTML = `<div class="horario-table-wrapper"><span class="horario-title"><i class='bx bx-time-five'></i> Horário de Funcionamento</span><div>Não informado</div></div>`;
           }
 
           modal.style.display = "block";
+          document.body.style.overflow = 'hidden'; // Bloqueia scroll
+          setTimeout(() => {
+            document.querySelector('.modern-modal').classList.add('show');
+          }, 10);
         });
       });
     }
 
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = "none";
-    });
-
+    closeBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (event) => {
       if (event.target == modal) {
-        modal.style.display = "none";
+        closeModal();
       }
     });
+    function closeModal() {
+      document.querySelector('.modern-modal').classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = "none";
+        document.body.style.overflow = '';
+      }, 250);
+    }
 
     // Modal Mapa
     const mapModal = document.getElementById("mapModal");
