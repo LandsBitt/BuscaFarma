@@ -145,6 +145,41 @@
   </div>
 
   <script src="scriptAcessebilidade.js"></script>
+  <style>
+    .cookie-consent-banner {
+      position: fixed;
+      bottom: 20px; /* Adjusted from 0 to 20px */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      background-color: #007bff; /* Blue color */
+      color: white;
+      padding: 15px;
+      text-align: center;
+      z-index: 1000;
+      display: none;
+      border-radius: 10px;
+    }
+  
+    .cookie-consent-banner p {
+      margin: 0 0 10px;
+    }
+  
+    .cookie-consent-banner a {
+      color: #ffffff; /* White color for the link */
+      text-decoration: underline;
+    }
+  
+    .cookie-consent-banner button {
+      background-color: #0056b3; /* Darker blue for the button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
   <script>
     // Efeito de scroll na navbar
     window.addEventListener('scroll', function () {
@@ -379,7 +414,25 @@
       });
     }
   </script>
+<div id="cookie-consent-banner" class="cookie-consent-banner">
+  <p>Este site usa cookies para garantir que você obtenha a melhor experiência. <a href="https://landsbitt.github.io/LGPD-BuscaFarma/" target="_blank">Política de Privacidade</a></p>
+  <button id="accept-cookies">Aceitar</button>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const banner = document.getElementById('cookie-consent-banner');
+    const acceptButton = document.getElementById('accept-cookies');
 
+    if (!localStorage.getItem('cookies-accepted')) {
+      banner.style.display = 'block';
+    }
+
+    acceptButton.addEventListener('click', function() {
+      localStorage.setItem('cookies-accepted', 'true');
+      banner.style.display = 'none';
+    });
+  });
+</script>
 </body>
 
 </html>
