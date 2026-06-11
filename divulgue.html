@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>BuscaFarma</title>
+    <meta name="description" content="Divulgue sua farmácia no BuscaFarma. Preencha o formulário e entraremos em contato para incluir seu estabelecimento em Tremembé.">
+    <title>Divulgue sua Farmácia — BuscaFarma</title>
 </head>
 
 <body>
@@ -18,10 +19,9 @@
 
         <div class="nav-links" id="nav-menu">
             <ul>
-                <li><a href="index.html" class="nav-item">Farmacias</a></li>
+                <li><a href="index.html" class="nav-item">Farmácias</a></li>
                 <li><a href="index.html#quem-somos" class="nav-item">Quem somos</a></li>
-                <li><a href="#" class="nav-item active">Divulgue aqui</a></li>
-                <li><a href="#" class="nav-item">Apoie</a></li>
+                <li><a href="divulgue.html" class="nav-item active" aria-current="page">Divulgue aqui</a></li>
             </ul>
         </div>
 
@@ -35,15 +35,22 @@
             <div class="contact-container">
                 <h1 class="contact-title">Divulgue sua Farmácia</h1>
                 <p class="contact-desc">Preencha o formulário abaixo para divulgar sua farmácia ou serviço no BuscaFarma. Entraremos em contato rapidamente!</p>
-                <form id="contact-form" class="styled-form">
-                    <div class="input-box">
-                        <input type="text" name="name" placeholder="Nome completo" required>
-                        <input type="email" name="email" placeholder="E-mail" required>
-                    </div>
-                    <div class="input-box">
-                        <input type="tel" name="phone" placeholder="Telefone">
-                    </div>
-                    <textarea name="message" cols="30" rows="8" placeholder="Mensagem" required></textarea>
+                <form id="contact-form" class="styled-form" aria-labelledby="contact-title">
+                    <fieldset>
+                        <legend class="visually-hidden">Dados para divulgação</legend>
+                        <div class="input-box">
+                            <label for="cf-name" class="visually-hidden">Nome completo</label>
+                            <input type="text" id="cf-name" name="name" placeholder="Nome completo" autocomplete="name" required>
+                            <label for="cf-email" class="visually-hidden">E-mail</label>
+                            <input type="email" id="cf-email" name="email" placeholder="E-mail" autocomplete="email" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="cf-phone" class="visually-hidden">Telefone (opcional)</label>
+                            <input type="tel" id="cf-phone" name="phone" placeholder="Telefone" autocomplete="tel">
+                        </div>
+                        <label for="cf-message" class="visually-hidden">Mensagem</label>
+                        <textarea id="cf-message" name="message" cols="30" rows="8" placeholder="Mensagem" required></textarea>
+                    </fieldset>
                     <button type="submit" class="btn primary">Enviar Mensagem</button>
                 </form>
             </div>
@@ -74,13 +81,18 @@
                         }
                     ]
                 };
-                await fetch(webhookURL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-                alert("Mensagem enviada com sucesso! Valeu ✌️");
-                e.target.reset();
+                try {
+                    const resp = await fetch(webhookURL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+                    if (!resp.ok) throw new Error("Falha no envio");
+                    alert("Mensagem enviada com sucesso! Valeu ✌️");
+                    e.target.reset();
+                } catch (err) {
+                    alert("Não foi possível enviar agora. Verifique sua conexão e tente novamente.");
+                }
             });
             // Efeito de scroll na navbar
             window.addEventListener('scroll', function () {
@@ -109,7 +121,6 @@
                 navLinks.classList.toggle('active');
             });
         </script>
-    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93bdb49e4e22ed8c',t:'MTc0NjU4OTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 <div id="cookie-consent-banner" class="cookie-consent-banner">
   <p>Este site usa cookies para garantir que você obtenha a melhor experiência. <a href="https://landsbitt.github.io/LGPD-BuscaFarma/" target="_blank">Política de Privacidade</a></p>
   <button id="accept-cookies">Aceitar</button>

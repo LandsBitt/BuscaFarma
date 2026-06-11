@@ -1405,3 +1405,54 @@ section.farmacias {
     flex-direction: column;
   }
 }
+
+/* ============================================================= */
+/* === ACESSIBILIDADE: tabela com <th>, formulário, links === */
+/* ============================================================= */
+
+/* Tabela de horários com cabeçalhos semânticos (<th>) */
+.horario-table th,
+.horario-table td {
+  padding: 8px;
+  font-size: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e3e3e3;
+  word-break: break-word;
+}
+.horario-table thead th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--neutral-100);
+}
+.horario-table th.horario-dia {
+  font-weight: 500;
+}
+.horario-table tbody tr:last-child th,
+.horario-table tbody tr:last-child td {
+  border-bottom: none;
+}
+/* Destaque do dia atual (inclui o cabeçalho de linha <th>) */
+.horario-table tr.is-today th,
+.horario-table tr.is-today td {
+  background: var(--brand-tint);
+  font-weight: 700;
+}
+
+/* Formulário do "Divulgue": reset do fieldset (mantém o layout) */
+.styled-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Item 8: links do rodapé sublinham no hover/foco (não só cor) */
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}

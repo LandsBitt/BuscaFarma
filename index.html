@@ -136,11 +136,11 @@
     </div>
   </footer>
 
-  <div id="myModal" class="modal">
+  <div id="myModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-content modern-modal animate-modal">
       <button class="close-btn" aria-label="Fechar">&times;</button>
       <div class="modal-header">
-        <div class="modal-icon"><i class='bx bxs-capsule'></i></div>
+        <div class="modal-icon"><i class='bx bxs-capsule' aria-hidden="true"></i></div>
         <div>
           <h2 id="modal-title" class="modal-title"></h2>
           <span id="modal-location" class="modal-location"></span>
@@ -458,6 +458,42 @@
     const modalLocation = document.getElementById("modal-location");
     const modalHorario = document.getElementById("modal-horario");
 
+    // ===== Gerenciamento de foco das modais (acessibilidade / teclado) =====
+    let modalLastFocus = null;
+    const FOCUSABLE_SEL = 'a[href], button:not([disabled]), input, textarea, select, iframe, [tabindex]:not([tabindex="-1"])';
+
+    function getVisibleFocusable(container) {
+      return [...container.querySelectorAll(FOCUSABLE_SEL)]
+        .filter(el => !el.hasAttribute('hidden') && (el.offsetWidth > 0 || el.offsetHeight > 0));
+    }
+
+    function activateModal(modalEl) {
+      modalLastFocus = document.activeElement; // memoriza para devolver o foco depois
+      const closeFirst = modalEl.querySelector('.close-btn');
+      setTimeout(() => { (closeFirst || modalEl).focus(); }, 30);
+      // Focus trap: Tab/Shift+Tab circulam apenas dentro da modal
+      modalEl._trapHandler = function (e) {
+        if (e.key !== 'Tab') return;
+        const f = getVisibleFocusable(modalEl);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      };
+      modalEl.addEventListener('keydown', modalEl._trapHandler);
+    }
+
+    function deactivateModal(modalEl) {
+      if (modalEl._trapHandler) {
+        modalEl.removeEventListener('keydown', modalEl._trapHandler);
+        modalEl._trapHandler = null;
+      }
+      if (modalLastFocus && typeof modalLastFocus.focus === 'function') {
+        modalLastFocus.focus(); // devolve o foco ao elemento que abriu a modal
+      }
+      modalLastFocus = null;
+    }
+
     function openDetailsModal(farmacia) {
       const status = getStatusFarmacia(farmacia);
       const hoje = DIAS_SEMANA[new Date().getDay()];
@@ -470,9 +506,19 @@
       if (Array.isArray(farmacia.horarios)) {
         const linhas = farmacia.horarios.map(h => {
           const atual = h.dia === hoje ? ' class="is-today"' : '';
-          return `<tr${atual}><td class="horario-dia"><i class='bx bx-calendar'></i> ${h.dia}</td><td class="horario-hora"><i class='bx bx-time'></i> ${h.horario}</td></tr>`;
+          return `<tr${atual}><th scope="row" class="horario-dia"><i class='bx bx-calendar' aria-hidden="true"></i> ${h.dia}</th><td class="horario-hora"><i class='bx bx-time' aria-hidden="true"></i> ${h.horario}</td></tr>`;
         }).join('');
-        horariosHtml = `<table class="horario-table"><tbody>${linhas}</tbody></table>`;
+        horariosHtml = `
+          <table class="horario-table">
+            <caption class="visually-hidden">Horário de funcionamento por dia da semana</caption>
+            <thead>
+              <tr>
+                <th scope="col"><i class='bx bx-calendar' aria-hidden="true"></i> Dia</th>
+                <th scope="col"><i class='bx bx-time' aria-hidden="true"></i> Horário</th>
+              </tr>
+            </thead>
+            <tbody>${linhas}</tbody>
+          </table>`;
       } else {
         horariosHtml = `<div>Não informado</div>`;
       }
@@ -488,6 +534,7 @@
 
       modal.style.display = "block";
       document.body.style.overflow = 'hidden'; // Bloqueia scroll
+      activateModal(modal);
       setTimeout(() => {
         modal.querySelector('.modern-modal').classList.add('show');
       }, 10);
@@ -501,6 +548,7 @@
     });
     function closeModal() {
       modal.querySelector('.modern-modal').classList.remove('show');
+      deactivateModal(modal);
       setTimeout(() => {
         modal.style.display = "none";
         document.body.style.overflow = '';
@@ -538,6 +586,7 @@
 
       mapModal.style.display = "block";
       document.body.style.overflow = 'hidden';
+      activateModal(mapModal);
       setTimeout(() => {
         mapModal.querySelector('.modern-modal').classList.add('show');
       }, 10);
@@ -545,6 +594,7 @@
 
     function closeMapModal() {
       mapModal.querySelector('.modern-modal').classList.remove('show');
+      deactivateModal(mapModal);
       setTimeout(() => {
         mapModal.style.display = "none";
         googleMapIframe.src = ""; // Interrompe o carregamento do mapa
