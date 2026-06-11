@@ -234,12 +234,12 @@ nav.scrolled {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 300px;
+  min-height: 320px;
   text-align: center;
   background: linear-gradient(rgba(0, 123, 255, 0.5), rgba(0, 86, 179, 0.7)), url('https://tremembe.sp.gov.br/wp-content/uploads/2022/03/c48dbcc8-e31b-4435-8a88-3484ef97c1e8.jpg');
   background-size: cover;
   background-position: center;
-  padding: 1rem;
+  padding: 2rem 1rem;
   color: #fff;
 }
 .wellcome h1 {
@@ -808,729 +808,209 @@ section.farmacias {
     font-size: 1rem;
   }
 }
-/* === Reset e Estilos Globais === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-html, body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-  position: relative;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  width: 100%;
-}
+/* ============================================================= */
+/* === MELHORIAS DE USABILIDADE / UI-UX (checklist SAPO UX) === */
+/* ============================================================= */
 
-/* Estilização da Scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #007BFF;
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0056b3;
-}
-
-/* === Navegação === */
-nav {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  height: 80px;
-  transition: all 0.3s ease;
-}
-
-nav.scrolled {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#logo img {
-  width: 150px;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-
-#logo:hover img {
-  transform: scale(1.05);
-}
-
-.nav-links ul {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
-
-.nav-links a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  padding: 0.5rem 0;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-links a::before {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #007BFF;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.nav-links a:hover, .nav-links a.active {
-  color: #007BFF;
-}
-
-.nav-links a:hover::before, .nav-links a.active::before {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* Botão Hambúrguer */
-.menu-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.hamburger {
-  display: block;
-  position: relative;
-  width: 24px;
-  height: 2px;
-  background: #333;
-  transition: all 0.3s ease;
-}
-
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 2px;
-  background: #333;
-  transition: all 0.3s ease;
-}
-
-.hamburger::before {
-  top: -8px;
-}
-
-.hamburger::after {
-  top: 8px;
-}
-
-.menu-toggle[aria-expanded="true"] .hamburger {
-  background: transparent;
-}
-
-.menu-toggle[aria-expanded="true"] .hamburger::before {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.menu-toggle[aria-expanded="true"] .hamburger::after {
-  transform: translateY(-8px) rotate(-45deg);
-}
-
-/* === Seção Wellcome === */
-.wellcome {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  text-align: center;
-  background: linear-gradient(rgba(0, 123, 255, 0.5), rgba(0, 86, 179, 0.7)), url('https://tremembe.sp.gov.br/wp-content/uploads/2022/03/c48dbcc8-e31b-4435-8a88-3484ef97c1e8.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 1rem;
-  color: #fff;
-}
-
-.wellcome h1 {
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  font-size: 3rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: 1.5rem;
-}
-
-.search-container {
-  width: 100%;
-  max-width: 500px;
-}
-
-#search-input {
-  width: 100%;
-  padding: 15px 20px;
-  border-radius: 50px;
-  border: none;
-  font-size: 1rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-#search-input:focus {
-  outline: none;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-/* === Seção Farmácias === */
-section.farmacias {
-  padding: 60px 20px;
-}
-
-.farmacia {
-  margin-bottom: 40px;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-.container.reverse {
-  flex-direction: row-reverse;
-}
-
-.info {
-  flex: 1;
-}
-
-.info h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #007BFF;
-}
-
-.info p {
-  font-size: 1rem;
+/* Legibilidade: line-height base >= 1.4 em todo o corpo */
+body {
   line-height: 1.6;
-  margin-bottom: 1.5rem;
 }
 
-.farmacia-img {
+/* Utilitário: conteúdo só para leitores de tela */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: navegação por teclado salta para o conteúdo */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  transform: translateX(-50%);
+  background: #007BFF;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 0 0 10px 10px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 2000;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Foco visível consistente para navegação por teclado (feedback) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #0056b3;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Remove o outline quando o foco vem do mouse, mantendo no teclado */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Subtítulo da hero */
+.wellcome-subtitle {
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Campo de busca com ícone */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: 18px;
+  font-size: 1.3rem;
+  color: #007BFF;
+  pointer-events: none;
+}
+.search-container #search-input {
+  padding-left: 48px;
+}
+#search-input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+/* Status acessível da pesquisa */
+.search-status {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 10px;
+  text-align: center;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Mensagens de estado: vazio / erro */
+.state-message {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 48px 24px;
+  text-align: center;
+  color: #555;
+}
+.state-message i {
+  font-size: 3rem;
+  color: #007BFF;
+  display: block;
+  margin-bottom: 12px;
+}
+.state-message p {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+.state-message .state-hint {
+  font-size: 0.95rem;
+  color: #888;
+}
+.state-message .primary {
+  margin-top: 16px;
+  border: none;
+}
+
+/* Skeleton de carregamento (feedback de loading) */
+.skeleton {
+  background: linear-gradient(90deg, #eceff1 25%, #f5f6f7 37%, #eceff1 63%);
+  background-size: 400% 100%;
+  border-radius: 8px;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+.skeleton-title { height: 2rem; width: 60%; margin-bottom: 1rem; }
+.skeleton-text  { height: 1rem; width: 100%; margin-bottom: 0.6rem; }
+.skeleton-text.short { width: 70%; }
+.skeleton-img {
   flex: 1;
   width: 100%;
   max-width: 500px;
-  border-radius: 12px;
   height: 300px;
-  object-fit: cover;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+@keyframes skeleton-loading {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
 }
 
-.farmacia-img:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-}
+/* Contraste: botões secundário/terciário mais escuros (AA) */
+.secondary { background-color: #1e7e34; }
+.secondary:hover { background-color: #18642a; }
+.tertiary { background-color: #565e64; }
+.tertiary:hover { background-color: #41484d; }
 
-.buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.buttons button, .buttons a {
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 2px solid transparent;
-}
-
-.primary {
-  background-color: #007BFF;
-  color: white;
-}
-
-.primary:hover {
-  background-color: #0056b3;
-}
-
-.secondary {
-  background-color: #28a745;
-  color: white;
-}
-
-.secondary:hover {
-  background-color: #1e7e34;
-}
-
-.tertiary {
-  background-color: #6c757d;
-  color: white;
-}
-
-.tertiary:hover {
-  background-color: #5a6268;
-}
-
-/* === Seção Quem Somos === */
-.quem-somos {
-  padding: 80px 20px;
-  background-color: #fff;
-}
-
-.quem-somos .container {
-  max-width: 800px;
-  text-align: center;
-  flex-direction: column;
-}
-
-.quem-somos h2 {
-  font-size: 2.5rem;
-  color: #007BFF;
-  margin-bottom: 30px;
-}
-
-.quem-somos p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.quem-somos .icon {
-  font-size: 1.5rem;
-  margin-right: 10px;
-  color: #007BFF;
-}
-
-.quem-somos .team-link {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #007BFF;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.quem-somos .team-link:hover {
-  background-color: #0056b3;
-  transform: translateY(-3px);
-}
-
-/* === Footer === */
-.footer {
-  background-color: #343a40;
-  color: #f8f9fa;
-  padding: 3rem 5%;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #495057;
-}
-
-.footer-logo img {
-  width: 200px;
-}
-
-.footer-links h3,
-.footer-social h3 {
-  font-size: 1.2rem;
-  color: #007BFF;
-  margin-bottom: 1rem;
-}
-
-.footer-links ul {
-  list-style: none;
-}
-
-.footer-links li {
-  margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-  color: #f8f9fa;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: #007BFF;
-}
-
-.footer-social .social-icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.footer-social a {
-  color: #f8f9fa;
-  font-size: 1.5rem;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.footer-social a:hover {
-  color: #007BFF;
-  transform: translateY(-3px);
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: 1.5rem;
-}
-
-.footer-bottom p {
-  font-size: 0.9rem;
-}
-
-.footer-bottom strong {
-  color: #007BFF;
-}
-
-/* === Modal === */
-
-/* === Modal Moderno === */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1001;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(2px);
-  transition: background 0.3s;
-}
-
-.modern-modal {
-  background: #fff;
-  margin: 60px auto;
-  padding: 0;
-  border-radius: 20px;
-  max-width: 480px;
-  width: 95%;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  transition: opacity 0.25s, transform 0.25s;
-}
-.modern-modal.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.animate-modal {
-  animation: modalIn 0.3s cubic-bezier(.4,0,.2,1);
-}
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(60px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  background: linear-gradient(90deg, #007BFF 60%, #0056b3 100%);
-  color: #fff;
-  padding: 28px 32px 18px 32px;
-  border-radius: 20px 20px 0 0;
-}
-.modal-icon {
-  font-size: 2.5rem;
-  background: #fff;
-  color: #007BFF;
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,123,255,0.08);
-}
-.modal-title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  margin-bottom: 2px;
-  color: #fff;
-}
-.modal-location {
-  font-size: 1rem;
-  color: #e3e3e3;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.modal-body {
-  padding: 24px 32px 32px 32px;
-  background: #fff;
-}
-.modal-description {
-  font-size: 1.08rem;
-  color: #333;
-  margin-bottom: 22px;
-}
-.close-btn {
-  color: #007BFF;
-  background: #fff;
-  border: none;
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-size: 2rem;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 10;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s;
-}
-.close-btn:hover,
-.close-btn:focus {
-  background: #007BFF;
-  color: #fff;
-}
-
-/* Horário Table */
-
-.horario-table-wrapper {
-  margin-top: 10px;
-  width: 100%;
-  overflow-x: auto;
-}
-.horario-title {
-  font-weight: 600;
-  color: #007BFF;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-.horario-table {
-  width: 100%;
-  min-width: 260px;
-  border-collapse: collapse;
-  background: #f8f9fa;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,123,255,0.04);
-  table-layout: fixed;
-}
-.horario-table td {
-  padding: 8px 8px;
-  font-size: 1rem;
-  color: #333;
-  border-bottom: 1px solid #e3e3e3;
-  word-break: break-word;
-}
-.horario-table tr:last-child td {
-  border-bottom: none;
-}
-.horario-dia {
-  font-weight: 500;
-  color: #007BFF;
-  white-space: nowrap;
-  width: 45%;
-  text-align: left;
-}
-.horario-hora {
-  color: #222;
-  width: 55%;
-  text-align: left;
-}
-
-@media (max-width: 480px) {
-  .horario-table td {
-    font-size: 0.95rem;
-    padding: 7px 4px;
-  }
-  .horario-title {
-    font-size: 1rem;
+/* Respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-@media (max-width: 600px) {
-  .modern-modal, .modal-content {
-    padding: 0;
-    max-width: 98vw;
+/* ============================================================= */
+/* === FOLHA DE ESTILOS PARA IMPRESSÃO === */
+/* ============================================================= */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
   }
-  .modal-header, .modal-body {
-    padding: 18px 10px 18px 10px;
-  }
-}
-
-/* Accessibility Button */
-.accessibility-floating-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.accessibility-btn {
-  background-color: #007BFF;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.accessibility-btn:hover {
-  background-color: #0056b3;
-  transform: scale(1.1);
-}
-
-/* === Media Queries === */
-@media (max-width: 768px) {
-  nav {
-    padding: 0 1.5rem;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 70%;
-    max-width: 300px;
-    height: 100vh;
-    background-color: #fff;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    transition: right 0.4s ease;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-links.active {
-    right: 0;
-  }
-
-  .nav-links ul {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .wellcome h1 {
-    font-size: 2.5rem;
-  }
-
-  .container, .container.reverse {
-    flex-direction: column;
-    text-align: center;
-  }
-
+  nav,
+  .menu-toggle-new,
+  .sidebar,
+  .menu-overlay,
+  .accessibility-floating-btn,
+  .cookie-consent-banner,
+  .skip-link,
+  .search-container,
+  .modal,
+  .footer-social,
   .farmacia-img {
-    max-width: 100%;
+    display: none !important;
   }
-
-  .buttons {
-    justify-content: center;
+  .wellcome {
+    min-height: auto;
+    padding: 0 0 1rem;
+    background: none !important;
   }
-
-  .footer-container {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+  .wellcome h1 { color: #000 !important; }
+  .container,
+  .container.reverse {
+    display: block;
+    page-break-inside: avoid;
   }
-}
-
-@media (max-width: 480px) {
-  .wellcome h1 {
-    font-size: 2rem;
-  }
-
-  .buttons button, .buttons a {
-    width: 100%;
-    justify-content: center;
+  .farmacia { border-bottom: 1px solid #ccc; padding-bottom: 12px; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
   }
 }
-.cookie-consent-banner {
-      position: fixed;
-      bottom: 20px; /* Adjusted from 0 to 20px */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90%;
-      max-width: 1200px;
-      background-color: #007bff; /* Blue color */
-      color: white;
-      padding: 15px;
-      text-align: center;
-      z-index: 1000;
-      display: none;
-      border-radius: 10px;
-    }
-  
-    .cookie-consent-banner p {
-      margin: 0 0 10px;
-    }
-  
-    .cookie-consent-banner a {
-      color: #ffffff; /* White color for the link */
-      text-decoration: underline;
-    }
-  
-    .cookie-consent-banner button {
-      background-color: #0056b3; /* Darker blue for the button */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-    }

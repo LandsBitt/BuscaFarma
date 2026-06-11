@@ -5,6 +5,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <meta name="description" content="BuscaFarma: encontre rapidamente farmácias em Tremembé-SP. Veja horários de funcionamento, localização no mapa e contato por WhatsApp em um só lugar.">
+  <meta name="theme-color" content="#007BFF">
+  <link rel="canonical" href="https://landsbitt.github.io/BuscaFarma/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BuscaFarma">
+  <meta property="og:title" content="BuscaFarma — Farmácias em Tremembé">
+  <meta property="og:description" content="Encontre farmácias em Tremembé-SP: horários, localização no mapa e contato por WhatsApp em um só lugar.">
+  <meta property="og:url" content="https://landsbitt.github.io/BuscaFarma/">
+  <meta property="og:image" content="https://landsbitt.github.io/BuscaFarma/imagens/BuscaFarma.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BuscaFarma — Farmácias em Tremembé">
+  <meta name="twitter:description" content="Encontre farmácias em Tremembé-SP: horários, localização no mapa e contato por WhatsApp.">
+  <meta name="twitter:image" content="https://landsbitt.github.io/BuscaFarma/imagens/BuscaFarma.png">
+
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,12 +39,13 @@
   <link rel="manifest" href="manifest.json">
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <title>BuscaFarma</title>
+  <title>BuscaFarma — Farmácias em Tremembé | Horários, mapa e WhatsApp</title>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6599460056865680"
      crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <a href="#farmacias-list" class="skip-link">Pular para a lista de farmácias</a>
   <nav>
     <div id="logo">
       <a href='/'>
@@ -37,10 +59,9 @@
     <aside class="sidebar" id="sidebar" aria-label="Menu lateral" aria-hidden="true">
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="#" class="nav-item active">Farmacias</a></li>
+          <li><a href="#farmacias-list" class="nav-item active">Farmácias</a></li>
           <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
           <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
-          <li><a href="#" class="nav-item">Apoie</a></li>
         </ul>
       </nav>
     </aside>
@@ -50,19 +71,24 @@
     </button>
   </nav>
 
-  <!-- Resto do HTML permanece igual -->
-  <section class="wellcome">
-    <h1>Farmácias Tremembé</h1>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Buscar farmácia...">
-    </div>
+  <section class="wellcome" id="top">
+    <h1>Farmácias em Tremembé</h1>
+    <p class="wellcome-subtitle">Horários, localização e contato das farmácias da cidade em um só lugar.</p>
+    <form class="search-container" role="search" onsubmit="return false;">
+      <label for="search-input" class="visually-hidden">Buscar farmácia pelo nome</label>
+      <i class='bx bx-search search-icon' aria-hidden="true"></i>
+      <input type="search" id="search-input" name="busca" placeholder="Buscar farmácia pelo nome..."
+        autocomplete="off" aria-describedby="search-status">
+    </form>
   </section>
 
-  <section class="farmacias" id="farmacias-list" aria-labelledby="farmacias-heading" tabindex="0">
+  <h2 id="farmacias-heading" class="visually-hidden">Lista de farmácias</h2>
+  <section class="farmacias" id="farmacias-list" aria-labelledby="farmacias-heading" aria-live="polite" tabindex="-1">
     <!-- Farmacias serão inseridas aqui pelo JavaScript -->
   </section>
+  <p id="search-status" class="search-status" role="status" aria-live="polite" hidden></p>
 
-  <section class="quem-somos" id="quem-somos" tabindex="0">
+  <section class="quem-somos" id="quem-somos" tabindex="-1">
     <div class="container">
       <h2>Quem Somos</h2>
       <div class="content-wrapper">
@@ -81,20 +107,19 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer" tabindex="0">
+  <footer class="footer" tabindex="-1">
     <div class="footer-container">
       <div class="footer-logo">
-        <a href="#home">
+        <a href="#top">
           <img src="imagens/BuscaFarma_footer.png" alt="Logo BuscaFarma">
         </a>
       </div>
       <div class="footer-links">
         <h3>Navegação</h3>
         <ul>
-          <li><a href="#" class="nav-item">Farmacias</a></li>
+          <li><a href="#farmacias-list" class="nav-item">Farmácias</a></li>
           <li><a href="#quem-somos" class="nav-item">Quem somos</a></li>
           <li><a href="divulgue.html" class="nav-item">Divulgue aqui</a></li>
-          <li><a href="#" class="nav-item">Apoie</a></li>
         </ul>
       </div>
       <div class="footer-social">
@@ -141,8 +166,8 @@
 
   <div class="accessibility-floating-btn">
     <button id="toggle-hover-reading" class="accessibility-btn" onclick="toggleHoverReading()"
-      aria-label="Ativar leitura por hover">
-      <i class='bx bx-volume-full'></i>
+      aria-label="Ativar leitura por voz" title="Ativar leitura por voz" aria-pressed="false">
+      <i class='bx bx-volume-mute'></i>
     </button>
   </div>
 
@@ -193,15 +218,23 @@
       }
     });
 
-    // Highlight do item ativo
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', function () {
-        document.querySelectorAll('.nav-links a').forEach(item => {
-          item.classList.remove('active');
+    // Scroll-spy: destaca o item do menu da seção visível (feedback de localização)
+    const spyLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+    const spySections = [...spyLinks]
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+    if ('IntersectionObserver' in window && spySections.length) {
+      const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            spyLinks.forEach(l => l.classList.remove('active'));
+            const active = document.querySelector(`.sidebar-nav .nav-item[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
         });
-        this.classList.add('active');
-      });
-    });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      spySections.forEach(sec => spyObserver.observe(sec));
+    }
 
 
     // MENU LATERAL MODERNO DO ZERO
@@ -251,17 +284,70 @@
     // Carregar e exibir farmácias
     const farmaciasList = document.getElementById('farmacias-list');
     const searchInput = document.getElementById('search-input');
+    const searchStatus = document.getElementById('search-status');
     let allFarmacias = [];
 
+    function setStatus(message) {
+      if (!message) {
+        searchStatus.hidden = true;
+        searchStatus.textContent = '';
+      } else {
+        searchStatus.hidden = false;
+        searchStatus.textContent = message;
+      }
+    }
+
+    // Estado de carregamento (skeleton) enquanto o JSON é buscado
+    function showLoading() {
+      farmaciasList.innerHTML = Array.from({ length: 3 }).map(() => `
+        <article class="farmacia" aria-hidden="true">
+          <div class="container">
+            <div class="info">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text short"></div>
+            </div>
+            <div class="skeleton skeleton-img"></div>
+          </div>
+        </article>`).join('');
+    }
+
+    showLoading();
+
     fetch('farmacias.json')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
       .then(data => {
         allFarmacias = data;
         displayFarmacias(allFarmacias);
+      })
+      .catch(() => {
+        farmaciasList.innerHTML = `
+          <div class="state-message" role="alert">
+            <i class='bx bx-error-circle' aria-hidden="true"></i>
+            <p>Não foi possível carregar as farmácias no momento.</p>
+            <button type="button" class="primary" onclick="location.reload()">
+              <i class='bx bx-refresh' aria-hidden="true"></i> Tentar novamente
+            </button>
+          </div>`;
       });
 
     function displayFarmacias(farmacias) {
       farmaciasList.innerHTML = '';
+
+      // Estado vazio da pesquisa (Ajuda / mensagens de erro adequadas)
+      if (!farmacias.length) {
+        farmaciasList.innerHTML = `
+          <div class="state-message">
+            <i class='bx bx-search-alt' aria-hidden="true"></i>
+            <p>Nenhuma farmácia encontrada para a sua busca.</p>
+            <p class="state-hint">Tente outro nome ou limpe a pesquisa.</p>
+          </div>`;
+        return;
+      }
+
       farmacias.forEach((farmacia, index) => {
         const farmaciaArticle = document.createElement('article');
         farmaciaArticle.classList.add('farmacia');
@@ -296,11 +382,19 @@
 
     // Busca
     searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
+      const searchTerm = e.target.value.trim().toLowerCase();
       const filteredFarmacias = allFarmacias.filter(farmacia =>
         farmacia.nome.toLowerCase().includes(searchTerm)
       );
       displayFarmacias(filteredFarmacias);
+
+      if (!searchTerm) {
+        setStatus('');
+      } else if (filteredFarmacias.length) {
+        setStatus(`${filteredFarmacias.length} farmácia(s) encontrada(s) para "${e.target.value.trim()}".`);
+      } else {
+        setStatus(`Nenhum resultado para "${e.target.value.trim()}".`);
+      }
     });
 
     // Modal Saiba Mais

@@ -6,9 +6,18 @@ const synth = window.speechSynthesis;
 function toggleHoverReading() {
   isHoverReadingEnabled = !isHoverReadingEnabled;
   const toggleButton = document.querySelector('#toggle-hover-reading');
-  toggleButton.textContent = isHoverReadingEnabled ? 'Desativar Leitura' : 'Ativar Leitura';
-  toggleButton.setAttribute('aria-label', isHoverReadingEnabled ? 'Desativar leitura por hover' : 'Ativar leitura por hover');
-  
+  const label = isHoverReadingEnabled ? 'Desativar leitura por voz' : 'Ativar leitura por voz';
+  toggleButton.setAttribute('aria-label', label);
+  toggleButton.setAttribute('title', label);
+  toggleButton.setAttribute('aria-pressed', isHoverReadingEnabled ? 'true' : 'false');
+
+  // Mantém o ícone do botão, apenas alternando seu estado visual
+  const icon = toggleButton.querySelector('i');
+  if (icon) {
+    icon.classList.toggle('bx-volume-full', isHoverReadingEnabled);
+    icon.classList.toggle('bx-volume-mute', !isHoverReadingEnabled);
+  }
+
   // Adicionar ou remover a classe reading-off
   if (isHoverReadingEnabled) {
     toggleButton.classList.remove('reading-off');
