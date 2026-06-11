@@ -153,13 +153,29 @@
     </div>
   </div>
 
-  <div id="mapModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeMapBtn">&times;</span>
-      <h3 id="map-modal-title"></h3>
-      <div class="map-container">
-        <iframe id="googleMapIframe" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen=""
-          aria-hidden="false" tabindex="0"></iframe>
+  <div id="mapModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="map-modal-title">
+    <div class="modal-content modern-modal map-modal animate-modal">
+      <button class="close-btn" id="closeMapBtn" aria-label="Fechar">&times;</button>
+      <div class="modal-header">
+        <div class="modal-icon"><i class='bx bx-map-alt'></i></div>
+        <div>
+          <h2 id="map-modal-title" class="modal-title"></h2>
+          <span id="map-modal-location" class="modal-location"></span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="map-container">
+          <iframe id="googleMapIframe" title="Mapa da localização da farmácia" width="100%" height="360"
+            frameborder="0" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-actions">
+          <a id="open-maps" class="nav-btn nav-maps" href="#" target="_blank" rel="noopener">
+            <i class='bx bx-map-alt' aria-hidden="true"></i> Abrir no Google Maps
+          </a>
+          <a id="open-waze" class="nav-btn nav-waze" href="#" target="_blank" rel="noopener">
+            <i class='bx bx-navigation' aria-hidden="true"></i> Abrir no Waze
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -297,17 +313,49 @@
       }
     }
 
+    // ===== Status "Aberto agora" calculado a partir dos horários =====
+    const DIAS_SEMANA = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+
+    function getStatusFarmacia(farmacia) {
+      if (!Array.isArray(farmacia.horarios)) return { state: 'unknown' };
+      const agora = new Date();
+      const registro = farmacia.horarios.find(h => h.dia === DIAS_SEMANA[agora.getDay()]);
+      if (!registro) return { state: 'unknown' };
+      const m = registro.horario.match(/(\d{1,2}):(\d{2})\s*(?:às|as|-|–)\s*(\d{1,2}):(\d{2})/i);
+      if (!m) return { state: 'unknown', hoje: registro.horario };
+      const minutosAgora = agora.getHours() * 60 + agora.getMinutes();
+      const inicio = (+m[1]) * 60 + (+m[2]);
+      const fim = (+m[3]) * 60 + (+m[4]);
+      const aberto = fim > inicio
+        ? (minutosAgora >= inicio && minutosAgora < fim)
+        : (minutosAgora >= inicio || minutosAgora < fim); // vira a meia-noite
+      return {
+        state: aberto ? 'open' : 'closed',
+        fecha: `${m[3].padStart(2, '0')}:${m[4]}`,
+        abre: `${m[1].padStart(2, '0')}:${m[2]}`,
+        hoje: registro.horario
+      };
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    }
+
+    function badgeHtml(status) {
+      if (status.state === 'open') return `<span class="status-badge status-open"><span class="dot"></span> Aberto agora</span>`;
+      if (status.state === 'closed') return `<span class="status-badge status-closed"><span class="dot"></span> Fechado agora</span>`;
+      return '';
+    }
+
     // Estado de carregamento (skeleton) enquanto o JSON é buscado
     function showLoading() {
-      farmaciasList.innerHTML = Array.from({ length: 3 }).map(() => `
-        <article class="farmacia" aria-hidden="true">
-          <div class="container">
-            <div class="info">
-              <div class="skeleton skeleton-title"></div>
-              <div class="skeleton skeleton-text"></div>
-              <div class="skeleton skeleton-text short"></div>
-            </div>
-            <div class="skeleton skeleton-img"></div>
+      farmaciasList.innerHTML = Array.from({ length: 6 }).map(() => `
+        <article class="farmacia-card is-skeleton" aria-hidden="true">
+          <div class="skeleton card-media"></div>
+          <div class="card-content">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text short"></div>
           </div>
         </article>`).join('');
     }
@@ -348,36 +396,41 @@
         return;
       }
 
-      farmacias.forEach((farmacia, index) => {
-        const farmaciaArticle = document.createElement('article');
-        farmaciaArticle.classList.add('farmacia');
+      const fragment = document.createDocumentFragment();
 
-        const containerDiv = document.createElement('div');
-        containerDiv.classList.add('container');
-        if (index % 2 !== 0) {
-          containerDiv.classList.add('reverse');
-        }
+      farmacias.forEach((farmacia) => {
+        const status = getStatusFarmacia(farmacia);
+        const horasHoje = status.state === 'open'
+          ? `Aberto · fecha às ${status.fecha}`
+          : status.state === 'closed'
+            ? (status.hoje && /\d/.test(status.hoje) ? `Hoje: ${status.hoje}` : 'Fechado hoje')
+            : 'Horário não confirmado';
 
-        containerDiv.innerHTML = `
-          <div class="info">
-            <h3>${farmacia.nome}</h3>
-            <p>${farmacia.descricao}</p>
-            <div class="buttons">
-              <button class="primary" aria-label="Saiba mais sobre ${farmacia.nome}" data-localizacao="${farmacia.localizacao}" data-horario="${farmacia.horario}"><i class='bx bx-info-circle'></i> Saiba mais</button>
-              <a href="https://wa.me/${farmacia.whatsapp}" target="_blank" class="secondary" aria-label="Contato WhatsApp da ${farmacia.nome}"><i class='bx bxl-whatsapp'></i> Contato WhatsApp</a>
-              <button class="tertiary" aria-label="Ver rota para ${farmacia.nome}" data-localizacao="${farmacia.localizacao}"><i class='bx bx-map'></i> Rota</button>
-            </div>
+        const card = document.createElement('article');
+        card.className = 'farmacia-card';
+        card.innerHTML = `
+          <div class="card-media">
+            <img src="${escapeHtml(farmacia.imagem)}" alt="Fachada da farmácia ${escapeHtml(farmacia.nome)}" class="card-img" loading="lazy"
+              onerror="this.onerror=null;this.src='imagens/placeholder.svg'">
+            ${badgeHtml(status)}
           </div>
-          <img src="${farmacia.imagem}" alt="Fachada da farmácia ${farmacia.nome}" class="farmacia-img" loading="lazy">
-        `;
-
-        farmaciaArticle.appendChild(containerDiv);
-        farmaciasList.appendChild(farmaciaArticle);
+          <div class="card-content">
+            <h3 class="card-title">${escapeHtml(farmacia.nome)}</h3>
+            <p class="card-loc"><i class='bx bx-map-pin' aria-hidden="true"></i> <span>${escapeHtml(farmacia.localizacao)}</span></p>
+            <p class="card-desc">${escapeHtml(farmacia.descricao)}</p>
+            <p class="card-hours"><i class='bx bx-time-five' aria-hidden="true"></i> ${horasHoje}</p>
+            <div class="buttons">
+              <button type="button" class="primary btn-details" aria-label="Ver detalhes de ${escapeHtml(farmacia.nome)}"><i class='bx bx-info-circle' aria-hidden="true"></i> Detalhes</button>
+              <a href="https://wa.me/${escapeHtml(farmacia.whatsapp)}" target="_blank" rel="noopener" class="secondary" aria-label="WhatsApp da ${escapeHtml(farmacia.nome)}"><i class='bx bxl-whatsapp' aria-hidden="true"></i> WhatsApp</a>
+              <button type="button" class="tertiary btn-route" aria-label="Ver rota para ${escapeHtml(farmacia.nome)}"><i class='bx bx-map' aria-hidden="true"></i> Rota</button>
+            </div>
+          </div>`;
+        card.querySelector('.btn-details').addEventListener('click', () => openDetailsModal(farmacia));
+        card.querySelector('.btn-route').addEventListener('click', () => openMapModal(farmacia));
+        fragment.appendChild(card);
       });
 
-      // Re-inicializar eventos do modal
-      initializeModalEvents();
-      initializeMapModalEvents();
+      farmaciasList.appendChild(fragment);
     }
 
     // Busca
@@ -405,47 +458,39 @@
     const modalLocation = document.getElementById("modal-location");
     const modalHorario = document.getElementById("modal-horario");
 
-    function initializeModalEvents() {
-      const saibaMaisButtons = document.querySelectorAll('.primary');
-      saibaMaisButtons.forEach((button, idx) => {
-        button.addEventListener('click', () => {
-          const farmaciaArticle = button.closest('.farmacia');
-          const title = farmaciaArticle.querySelector('h3').textContent;
-          const description = farmaciaArticle.querySelector('p').textContent;
-          const location = button.dataset.localizacao;
+    function openDetailsModal(farmacia) {
+      const status = getStatusFarmacia(farmacia);
+      const hoje = DIAS_SEMANA[new Date().getDay()];
 
-          // Buscar a farmácia correspondente pelo nome (garante que pega o objeto certo)
-          const farmacia = allFarmacias.find(f => f.nome === title);
+      modalTitle.textContent = farmacia.nome;
+      modalDescription.textContent = farmacia.descricao;
+      modalLocation.innerHTML = `<i class='bx bx-map'></i> ${escapeHtml(farmacia.localizacao)}`;
 
-          modalTitle.textContent = title;
-          modalDescription.textContent = description;
-          modalLocation.innerHTML = `<i class='bx bx-map'></i> ${location}`;
+      let horariosHtml;
+      if (Array.isArray(farmacia.horarios)) {
+        const linhas = farmacia.horarios.map(h => {
+          const atual = h.dia === hoje ? ' class="is-today"' : '';
+          return `<tr${atual}><td class="horario-dia"><i class='bx bx-calendar'></i> ${h.dia}</td><td class="horario-hora"><i class='bx bx-time'></i> ${h.horario}</td></tr>`;
+        }).join('');
+        horariosHtml = `<table class="horario-table"><tbody>${linhas}</tbody></table>`;
+      } else {
+        horariosHtml = `<div>Não informado</div>`;
+      }
 
-          // Exibir tabela de horários a partir do array 'horarios'
-          if (farmacia && Array.isArray(farmacia.horarios)) {
-            const horariosList = farmacia.horarios.map(h =>
-              `<tr><td class="horario-dia"><i class='bx bx-calendar'></i> ${h.dia}</td><td class="horario-hora"><i class='bx bx-time'></i> ${h.horario}</td></tr>`
-            ).join('');
-            modalHorario.innerHTML = `
-              <div class="horario-table-wrapper">
-                <span class="horario-title"><i class='bx bx-time-five'></i> Horário de Funcionamento</span>
-                <table class="horario-table">
-                  <tbody>${horariosList}</tbody>
-                </table>
-              </div>
-            `;
-          } else {
-            // fallback para farmácias sem horários estruturados
-            modalHorario.innerHTML = `<div class="horario-table-wrapper"><span class="horario-title"><i class='bx bx-time-five'></i> Horário de Funcionamento</span><div>Não informado</div></div>`;
-          }
+      modalHorario.innerHTML = `
+        <div class="horario-table-wrapper">
+          <div class="horario-head">
+            <span class="horario-title"><i class='bx bx-time-five'></i> Horário de Funcionamento</span>
+            ${badgeHtml(status)}
+          </div>
+          ${horariosHtml}
+        </div>`;
 
-          modal.style.display = "block";
-          document.body.style.overflow = 'hidden'; // Bloqueia scroll
-          setTimeout(() => {
-            document.querySelector('.modern-modal').classList.add('show');
-          }, 10);
-        });
-      });
+      modal.style.display = "block";
+      document.body.style.overflow = 'hidden'; // Bloqueia scroll
+      setTimeout(() => {
+        modal.querySelector('.modern-modal').classList.add('show');
+      }, 10);
     }
 
     closeBtn.addEventListener('click', closeModal);
@@ -455,51 +500,73 @@
       }
     });
     function closeModal() {
-      document.querySelector('.modern-modal').classList.remove('show');
+      modal.querySelector('.modern-modal').classList.remove('show');
       setTimeout(() => {
         modal.style.display = "none";
         document.body.style.overflow = '';
       }, 250);
     }
 
-    // Modal Mapa
+    // ===== Modal Rota / Mapa =====
     const mapModal = document.getElementById("mapModal");
     const closeMapBtn = document.getElementById("closeMapBtn");
     const mapModalTitle = document.getElementById("map-modal-title");
+    const mapModalLocation = document.getElementById("map-modal-location");
     const googleMapIframe = document.getElementById("googleMapIframe");
+    const openMapsBtn = document.getElementById("open-maps");
+    const openWazeBtn = document.getElementById("open-waze");
 
-    function initializeMapModalEvents() {
-      const rotaButtons = document.querySelectorAll('.tertiary');
+    function openMapModal(farmacia) {
+      const local = farmacia.localizacao;
+      const temCoords = !!farmacia.coords;
+      // Para a ROTA: coordenadas do PINO (botão direito no Maps) quando houver — mais preciso.
+      // Senão, busca por NOME + endereço. (Coords de embeds são o centro do mapa, não servem.)
+      const destinoNav = temCoords ? farmacia.coords : encodeURIComponent(`${farmacia.nome}, ${local}`);
 
-      rotaButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const farmaciaArticle = button.closest('.farmacia');
-          const title = farmaciaArticle.querySelector('h3').textContent;
-          const location = button.dataset.localizacao;
+      mapModalTitle.textContent = `Rota para ${farmacia.nome}`;
+      mapModalLocation.innerHTML = `<i class='bx bx-map'></i> ${escapeHtml(local)}`;
+      // Embed personalizado (pino nomeado da loja) tem prioridade
+      googleMapIframe.src = farmacia.embed
+        ? farmacia.embed
+        : `https://www.google.com/maps?q=${destinoNav}&output=embed`;
 
-          mapModalTitle.textContent = `Rota para ${title}`;
-          const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(location)}&output=embed`;
-          googleMapIframe.src = mapUrl;
-          mapModal.style.display = "block";
+      // Deep links de navegação (a visibilidade do Waze é controlada por CSS: só no celular)
+      openMapsBtn.href = `https://www.google.com/maps/dir/?api=1&destination=${destinoNav}`;
+      openWazeBtn.href = temCoords
+        ? `https://waze.com/ul?ll=${farmacia.coords}&navigate=yes`
+        : `https://waze.com/ul?q=${destinoNav}&navigate=yes`;
 
-        });
-      });
+      mapModal.style.display = "block";
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        mapModal.querySelector('.modern-modal').classList.add('show');
+      }, 10);
     }
 
-    closeMapBtn.addEventListener('click', () => {
-      mapModal.style.display = "none";
-      googleMapIframe.src = ""; // Clear iframe src to stop video/audio
-    });
+    function closeMapModal() {
+      mapModal.querySelector('.modern-modal').classList.remove('show');
+      setTimeout(() => {
+        mapModal.style.display = "none";
+        googleMapIframe.src = ""; // Interrompe o carregamento do mapa
+        document.body.style.overflow = '';
+      }, 250);
+    }
 
+    closeMapBtn.addEventListener('click', closeMapModal);
     window.addEventListener('click', (event) => {
       if (event.target == mapModal) {
-        mapModal.style.display = "none";
-        googleMapIframe.src = ""; // Clear iframe src to stop video/audio
+        closeMapModal();
       }
     });
 
+    // ESC fecha qualquer modal aberta
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (mapModal.style.display === 'block') closeMapModal();
+      if (modal.style.display === 'block') closeModal();
+    });
+
   </script>
-  <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'93bdb49eb9c3ed87',t:'MTc0NjU4OTMyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {

@@ -1,3 +1,43 @@
+/* === DESIGN TOKENS === */
+:root {
+  /* Cores de marca */
+  --brand: #1466e0;
+  --brand-strong: #0d4eb3;
+  --brand-tint: #eaf2ff;
+
+  /* Tinta / neutros */
+  --ink: #1a1f29;
+  --ink-soft: #5b6573;
+  --surface: #ffffff;
+  --bg: #f4f6fa;
+  --border: #e6e9ef;
+  --neutral-100: #eef1f6;
+
+  /* Estados */
+  --success: #15803d;
+  --success-strong: #126b34;
+  --danger: #dc2626;
+
+  /* Tipografia */
+  --font-sans: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Inter", var(--font-sans);
+
+  /* Raios */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Sombras em camadas */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+  --shadow-md: 0 6px 16px -4px rgba(16, 24, 40, .12), 0 2px 6px rgba(16, 24, 40, .06);
+  --shadow-lg: 0 24px 48px -16px rgba(16, 24, 40, .28), 0 8px 16px -8px rgba(16, 24, 40, .1);
+  --shadow-brand: 0 8px 20px -6px rgba(20, 102, 224, .45);
+
+  /* Transição padrão */
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
 /* === RESET E ESTILOS GLOBAIS === */
 * {
   margin: 0;
@@ -8,7 +48,7 @@
 html, body {
   font-family: "Roboto", sans-serif;
   background-color: #f8f9fa;
-  color: #333;
+  color: var(--ink);
   position: relative;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -23,11 +63,11 @@ html, body {
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #007BFF;
+  background: var(--brand);
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0056b3;
+  background: var(--brand-strong);
 }
 
 /* === NAVEGAÇÃO === */
@@ -61,7 +101,7 @@ nav.scrolled {
   gap: 2rem;
 }
 .nav-links a {
-  color: #333;
+  color: var(--ink);
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
@@ -76,13 +116,13 @@ nav.scrolled {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #007BFF;
+  background-color: var(--brand);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
 }
 .nav-links a:hover, .nav-links a.active {
-  color: #007BFF;
+  color: var(--brand);
 }
 .nav-links a:hover::before, .nav-links a.active::before {
   transform: scaleX(1);
@@ -106,14 +146,14 @@ nav.scrolled {
   transition: background 0.2s;
 }
 .menu-toggle-new:focus {
-  outline: 2px solid #007BFF;
+  outline: 2px solid var(--brand);
 }
 .hamburger-new {
   display: block;
   position: relative;
   width: 32px;
   height: 3px;
-  background: #333;
+  background: var(--ink);
   border-radius: 2px;
   transition: background 0.3s, box-shadow 0.3s;
 }
@@ -123,7 +163,7 @@ nav.scrolled {
   position: absolute;
   width: 32px;
   height: 3px;
-  background: #333;
+  background: var(--ink);
   border-radius: 2px;
   transition: transform 0.3s, top 0.3s, bottom 0.3s, background 0.3s;
 }
@@ -139,11 +179,11 @@ nav.scrolled {
 }
 .menu-toggle-new.open .hamburger-new::before {
   transform: translateY(10px) rotate(45deg);
-  background: #007BFF;
+  background: var(--brand);
 }
 .menu-toggle-new.open .hamburger-new::after {
   transform: translateY(-10px) rotate(-45deg);
-  background: #007BFF;
+  background: var(--brand);
 }
 
 .menu-overlay {
@@ -190,7 +230,7 @@ nav.scrolled {
   padding-left: 32px;
 }
 .sidebar-nav a {
-  color: #333;
+  color: var(--ink);
   font-size: 1.15rem;
   font-weight: 500;
   text-decoration: none;
@@ -199,7 +239,7 @@ nav.scrolled {
 }
 .sidebar-nav a.active,
 .sidebar-nav a:hover {
-  color: #007BFF;
+  color: var(--brand);
 }
 .sidebar-nav a.active::before,
 .sidebar-nav a:hover::before {
@@ -210,7 +250,7 @@ nav.scrolled {
   transform: translateY(-50%);
   width: 8px;
   height: 8px;
-  background: #007BFF;
+  background: var(--brand);
   border-radius: 50%;
 }
 
@@ -290,7 +330,7 @@ section.farmacias {
 .info h3 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #007BFF;
+  color: var(--brand);
 }
 .info p {
   font-size: 1rem;
@@ -329,11 +369,11 @@ section.farmacias {
   border: 2px solid transparent;
 }
 .primary {
-  background-color: #007BFF;
+  background-color: var(--brand);
   color: white;
 }
 .primary:hover {
-  background-color: #0056b3;
+  background-color: var(--brand-strong);
 }
 .secondary {
   background-color: #28a745;
@@ -362,7 +402,7 @@ section.farmacias {
 }
 .quem-somos h2 {
   font-size: 2.5rem;
-  color: #007BFF;
+  color: var(--brand);
   margin-bottom: 30px;
 }
 .quem-somos p {
@@ -373,12 +413,12 @@ section.farmacias {
 .quem-somos .icon {
   font-size: 1.5rem;
   margin-right: 10px;
-  color: #007BFF;
+  color: var(--brand);
 }
 .quem-somos .team-link {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #007BFF;
+  background-color: var(--brand);
   color: #fff;
   text-decoration: none;
   border-radius: 50px;
@@ -387,7 +427,7 @@ section.farmacias {
   margin-top: 1rem;
 }
 .quem-somos .team-link:hover {
-  background-color: #0056b3;
+  background-color: var(--brand-strong);
   transform: translateY(-3px);
 }
 
@@ -413,7 +453,7 @@ section.farmacias {
 .footer-links h3,
 .footer-social h3 {
   font-size: 1.2rem;
-  color: #007BFF;
+  color: var(--brand);
   margin-bottom: 1rem;
 }
 .footer-links ul {
@@ -428,7 +468,7 @@ section.farmacias {
   transition: color 0.3s ease;
 }
 .footer-links a:hover {
-  color: #007BFF;
+  color: var(--brand);
 }
 .footer-social .social-icons {
   display: flex;
@@ -440,7 +480,7 @@ section.farmacias {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 .footer-social a:hover {
-  color: #007BFF;
+  color: var(--brand);
   transform: translateY(-3px);
 }
 .footer-bottom {
@@ -451,7 +491,7 @@ section.farmacias {
   font-size: 0.9rem;
 }
 .footer-bottom strong {
-  color: #007BFF;
+  color: var(--brand);
 }
 
 /* === FORMULÁRIO DE CONTATO MODERNO === */
@@ -477,7 +517,7 @@ section.farmacias {
 }
 .contact-title {
   font-size: 2.1rem;
-  color: #007BFF;
+  color: var(--brand);
   font-family: "Inter", sans-serif;
   font-weight: 700;
   margin-bottom: 10px;
@@ -520,12 +560,12 @@ section.farmacias {
 }
 .styled-form input:focus,
 .styled-form textarea:focus {
-  border: 1.5px solid #007BFF;
+  border: 1.5px solid var(--brand);
   outline: none;
   box-shadow: 0 2px 12px rgba(0,123,255,0.10);
 }
 .styled-form .btn.primary {
-  background: #007BFF;
+  background: var(--brand);
   color: #fff;
   border: none;
   border-radius: 50px;
@@ -538,7 +578,7 @@ section.farmacias {
   box-shadow: 0 2px 8px rgba(0,123,255,0.08);
 }
 .styled-form .btn.primary:hover {
-  background: #0056b3;
+  background: var(--brand-strong);
   transform: translateY(-2px) scale(1.03);
 }
 
@@ -584,7 +624,7 @@ section.farmacias {
   display: flex;
   align-items: center;
   gap: 18px;
-  background: linear-gradient(90deg, #007BFF 60%, #0056b3 100%);
+  background: linear-gradient(90deg, var(--brand) 60%, var(--brand-strong) 100%);
   color: #fff;
   padding: 28px 32px 18px 32px;
   border-radius: 20px 20px 0 0;
@@ -592,7 +632,7 @@ section.farmacias {
 .modal-icon {
   font-size: 2.5rem;
   background: #fff;
-  color: #007BFF;
+  color: var(--brand);
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -620,11 +660,11 @@ section.farmacias {
 }
 .modal-description {
   font-size: 1.08rem;
-  color: #333;
+  color: var(--ink);
   margin-bottom: 22px;
 }
 .close-btn {
-  color: #007BFF;
+  color: var(--brand);
   background: #fff;
   border: none;
   position: absolute;
@@ -644,7 +684,7 @@ section.farmacias {
 }
 .close-btn:hover,
 .close-btn:focus {
-  background: #007BFF;
+  background: var(--brand);
   color: #fff;
 }
 
@@ -656,7 +696,7 @@ section.farmacias {
 }
 .horario-title {
   font-weight: 600;
-  color: #007BFF;
+  color: var(--brand);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -676,7 +716,7 @@ section.farmacias {
 .horario-table td {
   padding: 8px 8px;
   font-size: 1rem;
-  color: #333;
+  color: var(--ink);
   border-bottom: 1px solid #e3e3e3;
   word-break: break-word;
 }
@@ -685,7 +725,7 @@ section.farmacias {
 }
 .horario-dia {
   font-weight: 500;
-  color: #007BFF;
+  color: var(--brand);
   white-space: nowrap;
   width: 45%;
   text-align: left;
@@ -704,7 +744,7 @@ section.farmacias {
   z-index: 1000;
 }
 .accessibility-btn {
-  background-color: #007BFF;
+  background-color: var(--brand);
   color: #fff;
   border: none;
   padding: 12px;
@@ -720,7 +760,7 @@ section.farmacias {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .accessibility-btn:hover {
-  background-color: #0056b3;
+  background-color: var(--brand-strong);
   transform: scale(1.1);
 }
 
@@ -837,7 +877,7 @@ body {
   left: 50%;
   top: -60px;
   transform: translateX(-50%);
-  background: #007BFF;
+  background: var(--brand);
   color: #fff;
   padding: 12px 20px;
   border-radius: 0 0 10px 10px;
@@ -858,7 +898,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #0056b3;
+  outline: 3px solid var(--brand-strong);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -885,7 +925,7 @@ textarea:focus-visible,
   position: absolute;
   left: 18px;
   font-size: 1.3rem;
-  color: #007BFF;
+  color: var(--brand);
   pointer-events: none;
 }
 .search-container #search-input {
@@ -915,7 +955,7 @@ textarea:focus-visible,
 }
 .state-message i {
   font-size: 3rem;
-  color: #007BFF;
+  color: var(--brand);
   display: block;
   margin-bottom: 12px;
 }
@@ -993,7 +1033,9 @@ textarea:focus-visible,
   .search-container,
   .modal,
   .footer-social,
-  .farmacia-img {
+  .card-media,
+  .card-actions,
+  .farmacia-card .buttons {
     display: none !important;
   }
   .wellcome {
@@ -1002,15 +1044,364 @@ textarea:focus-visible,
     background: none !important;
   }
   .wellcome h1 { color: #000 !important; }
-  .container,
-  .container.reverse {
+  .farmacias {
+    display: block !important;
+  }
+  .farmacia-card {
     display: block;
+    border: 1px solid #ccc !important;
+    border-radius: 0;
+    padding: 12px 0;
     page-break-inside: avoid;
   }
-  .farmacia { border-bottom: 1px solid #ccc; padding-bottom: 12px; }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.85em;
     word-break: break-all;
+  }
+}
+
+/* ============================================================= */
+/* === CAMADA HIGH-END: TIPOGRAFIA, HERO, GRID DE CARDS === */
+/* ============================================================= */
+
+html, body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tipografia fluida e refinada */
+.wellcome h1 {
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin-bottom: 0.75rem;
+}
+.info h3, .quem-somos h2, .card-title {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+.quem-somos h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+
+/* ----- HERO refinada ----- */
+.wellcome {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(11, 32, 70, 0.35) 0%, rgba(8, 40, 95, 0.78) 100%),
+    url('https://tremembe.sp.gov.br/wp-content/uploads/2022/03/c48dbcc8-e31b-4435-8a88-3484ef97c1e8.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: clamp(340px, 45vh, 440px);
+  gap: 0.25rem;
+}
+.wellcome-subtitle {
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.75rem;
+}
+
+/* Campo de busca premium */
+#search-input {
+  padding: 16px 22px 16px 50px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-lg);
+  font-size: 1.02rem;
+}
+#search-input:focus {
+  box-shadow: var(--shadow-lg), 0 0 0 4px rgba(255, 255, 255, 0.35);
+}
+.search-icon { color: var(--ink-soft); }
+
+/* ----- GRID DE CARDS ----- */
+section.farmacias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2rem);
+}
+.farmacias .state-message { grid-column: 1 / -1; }
+
+.farmacia-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.farmacia-card:not(.is-skeleton):hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--neutral-100);
+  overflow: hidden;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+.farmacia-card:hover .card-img { transform: scale(1.05); }
+.card-img.img-fallback { object-fit: contain; padding: 2rem; opacity: 0.6; }
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: clamp(1.1rem, 2.5vw, 1.4rem);
+  flex: 1;
+}
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.card-loc {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+.card-loc span {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-loc i, .card-hours i {
+  color: var(--brand);
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+.card-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-hours {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+/* Linha de ações dentro do card */
+.card-content .buttons {
+  margin-top: 0.9rem;
+  gap: 0.5rem;
+}
+.farmacia-card .buttons button,
+.farmacia-card .buttons a {
+  flex: 1 1 auto;
+  justify-content: center;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ----- BADGE "ABERTO AGORA" ----- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+.status-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-open { background: rgba(21, 128, 61, 0.95); }
+.status-open .dot {
+  background: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.35);
+}
+.status-closed { background: rgba(30, 34, 42, 0.85); }
+.status-closed .dot { background: #f87171; }
+
+.card-media .status-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ----- BOTÕES: micro-interações premium ----- */
+.buttons button, .buttons a, .team-link, .styled-form .btn.primary {
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
+}
+.primary { box-shadow: var(--shadow-brand); }
+.buttons button:active, .buttons a:active {
+  transform: translateY(1px);
+}
+.secondary { background-color: var(--success); }
+.secondary:hover { background-color: var(--success-strong); }
+.tertiary { background-color: #4b5563; }
+.tertiary:hover { background-color: #374151; }
+
+/* ----- MODAL: refinamentos ----- */
+.modern-modal { box-shadow: var(--shadow-lg); }
+.modal-header {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%);
+}
+.horario-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 10px;
+}
+.horario-table tr.is-today td {
+  background: var(--brand-tint);
+  font-weight: 700;
+}
+.horario-table tr.is-today .horario-dia { color: var(--brand-strong); }
+
+/* ----- SKELETON adaptado ao card ----- */
+.farmacia-card.is-skeleton {
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.farmacia-card.is-skeleton .card-media {
+  aspect-ratio: 16 / 10;
+  border-radius: 0;
+}
+.is-skeleton .card-content { gap: 0.7rem; }
+
+/* ----- "QUEM SOMOS" mais sofisticada ----- */
+.quem-somos .content-wrapper p {
+  text-align: left;
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+/* ----- Botão de acessibilidade flutuante ----- */
+.accessibility-btn {
+  box-shadow: var(--shadow-brand);
+  background-color: var(--brand);
+}
+
+@media (max-width: 480px) {
+  section.farmacias {
+    grid-template-columns: 1fr;
+  }
+  .farmacia-card .buttons button,
+  .farmacia-card .buttons a {
+    flex-basis: 100%;
+  }
+}
+
+/* ============================================================= */
+/* === MODAL DE ROTA + BOTÕES DE NAVEGAÇÃO (Maps / Waze) === */
+/* ============================================================= */
+.map-modal {
+  max-width: 640px;
+}
+.map-modal .modal-body {
+  padding: 20px clamp(16px, 4vw, 28px) 24px;
+}
+.map-container {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: var(--neutral-100);
+  line-height: 0;
+}
+.map-container iframe {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 40vh, 360px);
+}
+
+/* Linha de ações de navegação */
+.map-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 18px;
+}
+.nav-btn {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.nav-btn i {
+  font-size: 1.2rem;
+}
+.nav-btn:active {
+  transform: translateY(1px);
+}
+.nav-maps {
+  background-color: var(--brand);
+  color: #fff;
+  box-shadow: var(--shadow-brand);
+}
+.nav-maps:hover {
+  background-color: var(--brand-strong);
+}
+.nav-waze {
+  background-color: #33ccff;
+  color: #052b3a;
+  box-shadow: 0 8px 20px -6px rgba(51, 204, 255, 0.55);
+}
+.nav-waze:hover {
+  background-color: #1bb6e6;
+}
+
+/* Por padrão (PC) o Waze fica oculto — só o Maps é exibido */
+.nav-waze {
+  display: none;
+}
+
+/* No celular: exibe Waze e empilha os botões em coluna */
+@media (max-width: 768px) {
+  .nav-waze {
+    display: inline-flex;
+  }
+  .map-actions {
+    flex-direction: column;
   }
 }

@@ -34,7 +34,7 @@
   {
     "nome": "Farma GE",
     "descricao": "Farmácia especializada em comércio varejista de produtos farmacêuticos, localizada no centro de Tremembé.",
-    "imagem": "https://via.placeholder.com/550x300",
+    "imagem": "imagens/FarmaGE.jpg",
     "whatsapp": "551236723647",
     "localizacao": "Praça Geraldo Costa, 13 - Centro, Tremembé, SP",
     "horarios": [
@@ -50,9 +50,10 @@
   {
     "nome": "Grupo Multifarma Tremembé",
     "descricao": "Rede associativista de farmácias com foco em gestão e faturamento, oferece entrega em domicílio e compras na loja.",
-    "imagem": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq8xrLWhQ4QHgtreBdL8xpByuGwMOR35gKpWqNXBtvgQmqx6EwcJkN--OB_oJ_kSzc0F1ka9SwahDwkWovH7SmK3qEFxaBrUB0dIA-85ggYvDplr8uNOBid_NJAiI56EtYl_YNtE2WeP9Is=s680-w680-h510-rw",
+    "imagem": "imagens/Multifarma.jpg",
     "whatsapp": "551236722789",
     "localizacao": "Praça Geraldo Costa, 7 - Centro, Tremembé, SP",
+    "embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d918.412374284219!2d-45.5498785!3d-22.9631321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ccf7a26bb61aeb%3A0x89d535cac458b6d1!2sGrupo%20Multifarma%20Trememb%C3%A9!5e0!3m2!1spt-BR!2sbr!4v1781185580058!5m2!1spt-BR!2sbr",
     "horarios": [
       { "dia": "Segunda-feira", "horario": "08:00 às 22:00" },
       { "dia": "Terça-feira", "horario": "08:00 às 22:00" },
@@ -98,9 +99,11 @@
   {
     "nome": "MULTIFARMA JD SANTANA",
     "descricao": "Oferece variedade de produtos farmacêuticos e opções de entrega, incluindo no mesmo dia.",
-    "imagem": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrDbEXhEphDI2agL2QLA-8GeL_7dnEnxmGwiY5u9v9Cs1yw8C1-E0szTRaQ7vlegb1a-2DWJi1Dph5umVZEH6TIi726AQzbN3mVvoroK4ES_6a94CyoazUXh5DU1QrxhvqoKJCdqg=s680-w680-h510-rw",
+    "imagem": "imagens/Multifarma_santana.jpg",
     "whatsapp": "551236724893",
     "localizacao": "Rua Justimiano Antunes, 316 - Jardim Santana, Tremembé, SP",
+    "coords": "-22.972330835895992,-45.544548015471086",
+    "embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.3993082989723!2d-45.54712628891951!3d-22.972339479122258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ccf71465cbaa6b%3A0x9fb42fbecafed36b!2sMULTIFARMA%20JD.%20SANTANA!5e0!3m2!1spt-BR!2sbr!4v1781186324301!5m2!1spt-BR!2sbr",
     "horarios": [
       { "dia": "Segunda-feira", "horario": "08:00 às 20:00" },
       { "dia": "Terça-feira", "horario": "08:00 às 20:00" },
